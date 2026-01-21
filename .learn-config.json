@@ -28,7 +28,6 @@
   "progress": {
     "auto_save": true,
     "backup_frequency": "daily",
-    "sync_remote": false,
     "track_analytics": true
   },
   "notifications": {

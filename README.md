@@ -43,6 +43,29 @@ An interactive, hands-on tutorial system that teaches users to become Claude Cod
 - Provides contextual encouragement
 - Seamless progress persistence
 
+## Privacy & Data
+
+### 🔒 100% Local, Zero Cloud
+
+This tutorial runs **entirely on your machine**. Your learning progress is private and secure.
+
+**What's stored locally:**
+- `.learn-progress.json` - Your progress (modules, exercises, achievements)
+- `.learn-config.json` - Your preferences and settings
+
+**What's NOT collected:**
+- ❌ No data sent to external servers
+- ❌ No analytics or tracking
+- ❌ No cloud sync or remote storage
+- ❌ No network calls (except Claude Code's own API)
+
+**Your data, your control:**
+- View your data: `cat .learn-progress.json`
+- Change your name: Edit `user.name` in `.learn-config.json`
+- Delete everything: `rm .learn-progress.json .learn-config.json`
+
+All code is open source and auditable. What happens on your machine, stays on your machine.
+
 ## Quick Start
 
 ### Step 1: Copy the Practice Project
