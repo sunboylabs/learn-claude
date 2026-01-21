@@ -1,0 +1,40 @@
+{
+  "version": "1.0.0",
+  "user": {
+    "name": "Learner",
+    "timezone": "America/Los_Angeles",
+    "learning_pace": "moderate"
+  },
+  "display": {
+    "colors": true,
+    "animations": true,
+    "emoji": true,
+    "compact_mode": false,
+    "theme": "default"
+  },
+  "celebrations": {
+    "enabled": true,
+    "style": "full",
+    "sound": false,
+    "animation_speed": "normal"
+  },
+  "learning": {
+    "show_hints": true,
+    "show_examples": true,
+    "difficulty": "auto",
+    "skip_assessments": false,
+    "auto_advance": false
+  },
+  "progress": {
+    "auto_save": true,
+    "backup_frequency": "daily",
+    "sync_remote": false,
+    "track_analytics": true
+  },
+  "notifications": {
+    "streak_reminders": true,
+    "achievement_unlocks": true,
+    "module_completion": true,
+    "daily_challenges": false
+  }
+}

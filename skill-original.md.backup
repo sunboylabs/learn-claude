@@ -1,0 +1,1217 @@
+---
+name: learn-claude-code
+description: Interactive tutorial to master Claude Code. Use when user wants to learn Claude Code, understand how to use it effectively, or become a power user. Takes users through progressive hands-on exercises covering all features, from basic file operations to advanced workflows with MCP, sub-agents, and CI/CD integration.
+---
+
+# SKILL INSTRUCTIONS FOR CLAUDE
+
+**CRITICAL - Read this before every response:**
+
+1. **Check Progress on Every Interaction**
+   - Run: `node .claude/hooks/progress-helper.js check` to see current state
+   - Load the appropriate module and exercise based on progress
+   - Never show content the user has already completed
+
+2. **Detect Exercise Completion**
+   When you observe the user has successfully completed an exercise:
+   - Exercise 1.1 (Read file): Completed when you use the Read tool successfully
+   - Exercise 1.2 (Glob): Completed when you use the Glob tool successfully
+   - Exercise 1.3 (Understanding): Completed when you provide an explanation after reading code
+   - Exercise 2.1 (Multiple files): Completed when you Read 2+ files in parallel
+   - Exercise 2.2 (Grep search): Completed when you use Grep successfully
+   - Exercise 2.3 (Write file): Completed when you use Write to create a new file
+   - Exercise 2.4 (Edit file): Completed when you use Edit to modify a file
+   - Exercise 3.1-3.3 (Bash): Completed when you successfully execute the bash command
+   - Exercise 4.1 (TodoWrite): Completed when you create todos for a complex task
+   - Exercise 4.2 (Explore agent): Completed when you launch a Task with subagent_type=Explore
+   - Exercise 4.3 (Parallel ops): Completed when you execute 3+ tools in one message
+
+3. **Mark Completion Automatically**
+   When an exercise is complete:
+   - Run: `node .claude/hooks/progress-helper.js complete-exercise <exercise-id>`
+   - Celebrate: "✅ Exercise <id> complete! You just learned <skill>!"
+   - Auto-advance to next exercise
+   - Check if module is complete
+
+4. **Module Transitions**
+   When all exercises in a module are done:
+   - Celebrate completion with summary
+   - Show what they learned
+   - Automatically start next module introduction
+   - Run: `node .claude/hooks/progress-helper.js complete-module <num>`
+
+5. **Smart Resuming**
+   - Always start by checking progress
+   - Say: "📍 Resuming at Module X, Exercise Y"
+   - Show context of current exercise
+   - Don't make user repeat completed work
+
+6. **Progress Visibility**
+   After each completion, show:
+   ```
+   📊 Progress: X/Y exercises complete | Module M/8
+   🎯 Next: Exercise Z - [brief description]
+   ```
+
+---
+
+# Welcome to Claude Code Mastery!
+
+You're about to go through an interactive learning experience that will transform you from a beginner into a Claude Code power user. This isn't just reading documentation—you'll actually DO things, learn by practice, and build real skills.
+
+## How This Works
+
+This tutorial has **8 progressive modules**, each teaching you specific capabilities:
+1. **First Steps** - Basic navigation and interaction
+2. **File Operations** - Reading, writing, editing, searching code
+3. **Terminal & Git** - Shell commands and version control
+4. **Advanced Tools** - Task management, sub-agents, parallel execution
+5. **Customization** - Skills, slash commands, hooks, styles
+6. **Web Integration** - Fetching docs, searching, browser tools
+7. **Advanced Workflows** - MCP, CI/CD, IDE integration, PRs
+8. **Power User Mastery** - Best practices, patterns, real scenarios
+
+After each module, you'll complete a **hands-on exercise** to prove you've mastered it. No skipping ahead—learning compounds!
+
+## 🎯 Your Practice Project
+
+**IMPORTANT**: This skill includes a complete practice project for you to work on!
+
+**Practice Project Location**: `practice-project/` directory
+
+This is a real Node.js Task Management API with:
+- Authentication system
+- Task CRUD operations
+- Tests (some incomplete)
+- Intentional bugs to fix
+- TODO comments to complete
+- Documentation
+- Git repository
+
+**All exercises use this project** - no need to figure out what to practice on!
+
+### First Time Setup
+
+**CRITICAL - Check if practice project is set up:**
+
+1. Run: `ls practice-project/package.json`
+2. If it exists, you're ready to go!
+3. If not, the user needs to copy the practice-project directory from the skill folder
+
+Tell the user:
+```
+📦 Practice Project Setup:
+
+Navigate to where you want to practice:
+cd /path/to/your/practice-location
+
+Copy the practice project:
+cp -r [skill-location]/practice-project ./
+
+Enter the project:
+cd practice-project
+
+You're ready to learn! 🚀
+```
+
+**Once setup is complete**, all exercises will reference specific files in this project.
+
+## Your Current Progress
+
+Let me check where you are in your learning journey.
+
+**IMPORTANT INSTRUCTION**: Before starting, do the following:
+1. Check if we're in the practice-project directory or if it exists nearby
+2. If not set up, provide setup instructions above
+3. Ask initial questions:
+   - Have you used Claude Code before? (never / a little / somewhat familiar)
+   - Do you prefer: (a) Full guided experience with all 8 modules, (b) Fast-track (skip basics), or (c) Jump to specific module
+
+Based on their answers, adjust pacing and starting point.
+
+---
+
+# Module 1: First Steps
+
+## What You'll Learn
+- How to communicate with Claude Code effectively
+- Basic commands you can use
+- How to ask questions about your codebase
+- Understanding tool usage (Read, Glob, Grep basics)
+
+## Core Concepts
+
+Claude Code is an AI assistant that lives in your terminal and can:
+- **Read and analyze** any file in your project
+- **Search and explore** codebases of any size
+- **Write and edit** code with surgical precision
+- **Execute commands** via bash
+- **Manage complex tasks** with built-in project management
+- **Access the web** to fetch docs and search for information
+
+### Communication Style
+- Be direct and specific with requests
+- Claude can see your entire project but needs you to guide focus
+- You can run multiple operations in parallel
+- Tool results show you exactly what Claude is doing
+
+### Basic Interaction Patterns
+
+**Good requests:**
+- "Read the main.py file and explain what it does"
+- "Find all TypeScript files that import React"
+- "Create a new function to validate email addresses"
+
+**Even better requests:**
+- "Search for all TODO comments in Python files and create a task list"
+- "Read app.py and tests/test_app.py, then add tests for the missing edge cases"
+- "Find where the authentication logic is implemented and explain the flow"
+
+## Hands-On Exercise 1.1
+
+Let's start simple. I want you to practice giving me a clear request:
+
+**Task**: Ask me to find and read a specific file in your current project, then explain what it does.
+
+Try it now! Give me a command like: "Find the [file type] file that handles [functionality] and explain it to me"
+
+---
+
+*[WAIT FOR USER TO COMPLETE EXERCISE 1.1 BEFORE CONTINUING]*
+
+---
+
+## Exercise 1.2: Using Glob
+
+Now let's practice file searching.
+
+**What is Glob?** It's a tool for finding files by pattern:
+- `**/*.py` - All Python files in any directory
+- `src/**/*.ts` - All TypeScript files under src/
+- `*.json` - JSON files in current directory
+
+**Task**: Ask me to find all files of a specific type in your project. Use a pattern like "Find all [file extension] files" or "Show me all test files".
+
+Try it now!
+
+---
+
+*[WAIT FOR USER TO COMPLETE EXERCISE 1.2]*
+
+---
+
+## Exercise 1.3: Basic Code Understanding
+
+**Task**: Now ask me to explain how a specific feature or function works in your codebase. Be specific about what you want to understand.
+
+Example: "Explain how user authentication works" or "Show me how the database connection is configured"
+
+---
+
+*[WAIT FOR USER TO COMPLETE EXERCISE 1.3]*
+
+---
+
+## Module 1 Complete! 🎯
+
+You've learned:
+✓ How to communicate effectively with Claude Code
+✓ Basic file reading with Read tool
+✓ File pattern matching with Glob
+✓ Asking for code explanations
+
+**Ready for Module 2?** Type "continue" or "next module" to proceed.
+
+---
+
+# Module 2: File Operations Master
+
+## What You'll Learn
+- **Read** - Reading files with precision (ranges, multiple files)
+- **Write** - Creating new files
+- **Edit** - Making surgical changes to existing files
+- **Grep** - Content-based searching (finding code patterns)
+- **Glob** - Advanced pattern matching
+
+## The File Operation Tools
+
+### Read Tool
+- Reads entire files or specific line ranges
+- Can read multiple files in parallel
+- Shows line numbers for easy reference
+
+**Examples:**
+- "Read package.json"
+- "Read lines 50-100 of server.js"
+- "Read both the component and its test file"
+
+### Write Tool
+- Creates new files from scratch
+- MUST read existing file first before overwriting
+- Use for NEW files only
+
+**Examples:**
+- "Create a new utils/validator.js file with email validation"
+- "Write a README.md explaining the project"
+
+### Edit Tool
+- Makes precise changes using string replacement
+- Preserves everything else in the file
+- Can replace all occurrences or just first match
+- Must provide exact old string to replace
+
+**Examples:**
+- "Change the port from 3000 to 8080"
+- "Rename the function getUserData to fetchUserData"
+- "Update the error message in the login function"
+
+### Grep Tool
+- Searches file CONTENTS (not just filenames)
+- Uses regex patterns
+- Can filter by file type
+- Shows context lines around matches
+
+**Examples:**
+- "Find all TODO comments in the codebase"
+- "Search for console.log statements in JavaScript files"
+- "Find where the API_KEY constant is used"
+
+## Hands-On Exercise 2.1: Read Multiple Files
+
+**Task**: Ask me to read 2-3 related files in parallel (like a component and its test, or a config file and its usage).
+
+Try it: "Read [file1] and [file2] together"
+
+---
+
+*[WAIT FOR USER]*
+
+---
+
+## Exercise 2.2: Content Search with Grep
+
+**Task**: Search for a specific function, variable, or pattern in your codebase.
+
+Examples:
+- "Find all files that import the express library"
+- "Search for functions that return promises"
+- "Find all error handling code"
+
+Try it now!
+
+---
+
+*[WAIT FOR USER]*
+
+---
+
+## Exercise 2.3: Write a New File
+
+**Task**: Ask me to create a completely new file. Could be:
+- A utility function
+- A configuration file
+- A test file
+- Documentation
+
+Example: "Create a new file utils/helpers.js with a function to format dates"
+
+---
+
+*[WAIT FOR USER]*
+
+---
+
+## Exercise 2.4: Edit an Existing File
+
+**Task**: Ask me to make a specific change to an existing file. This could be:
+- Changing a value
+- Renaming something
+- Updating a string
+- Fixing a bug
+
+Example: "In config.js, change the timeout from 5000 to 10000"
+
+---
+
+*[WAIT FOR USER]*
+
+---
+
+## Module 2 Complete! 🎯
+
+You've mastered:
+✓ Reading single and multiple files
+✓ Searching code content with Grep
+✓ Creating new files with Write
+✓ Making surgical edits with Edit
+✓ Understanding when to use each tool
+
+**Next up**: Terminal & Git workflows! Type "continue" when ready.
+
+---
+
+# Module 3: Terminal & Git Workflow
+
+## What You'll Learn
+- Running bash commands through Claude
+- Git operations (status, diff, commit, push)
+- Creating commits with proper messages
+- Branch management
+- When to use Bash vs specialized tools
+
+## The Bash Tool
+
+Claude can execute terminal commands for you:
+- Package management (npm, pip, cargo, etc.)
+- Git operations
+- Running tests
+- Starting servers
+- System operations
+
+**Important**: Use specialized tools (Read, Edit, Grep) for file operations—they're more efficient than bash commands like cat, sed, or grep.
+
+### Git Workflow with Claude
+
+Claude follows strict git safety protocols:
+- **NEVER** runs destructive commands without permission
+- **NEVER** force pushes to main/master
+- **NEVER** skips hooks
+- Only commits when explicitly asked
+- Creates meaningful commit messages
+
+### Commit Message Format
+
+When you ask Claude to commit, it will:
+1. Run `git status` to see changes
+2. Run `git diff` to understand what changed
+3. Create a descriptive commit message
+4. Add signature: "🤖 Generated with Claude Code"
+
+## Hands-On Exercise 3.1: Check Git Status
+
+**Task**: Ask me to show you the current git status of your repository.
+
+Try it: "Show me the git status" or "What files have changed?"
+
+---
+
+*[WAIT FOR USER]*
+
+---
+
+## Exercise 3.2: View Changes
+
+**Task**: Ask me to show you the actual code changes (diff) in your working directory.
+
+Try it: "Show me what changed" or "Git diff the current changes"
+
+---
+
+*[WAIT FOR USER]*
+
+---
+
+## Exercise 3.3: Run a Command
+
+**Task**: Ask me to run a bash command. Could be:
+- Install a package
+- Run tests
+- Check a version
+- List running processes
+
+Example: "Run npm test" or "Install the axios package"
+
+---
+
+*[WAIT FOR USER]*
+
+---
+
+## Exercise 3.4: Create a Commit (Optional)
+
+**Note**: Only do this if you have uncommitted changes you want to commit.
+
+**Task**: Ask me to commit your changes with a descriptive message.
+
+Try it: "Commit these changes" or "Create a git commit for these updates"
+
+---
+
+*[WAIT FOR USER OR SKIP]*
+
+---
+
+## Module 3 Complete! 🎯
+
+You've learned:
+✓ Running bash commands through Claude
+✓ Checking git status and diffs
+✓ Understanding Claude's git safety protocols
+✓ Creating commits with proper messages
+✓ When to use Bash vs specialized tools
+
+**Next**: Advanced tools for power users! Type "continue" when ready.
+
+---
+
+# Module 4: Advanced Tools
+
+## What You'll Learn
+- **TodoWrite** - Task tracking and project management
+- **Task tool** - Launching sub-agents for complex work
+- **Parallel execution** - Running multiple operations simultaneously
+- **Explore agent** - Specialized codebase exploration
+
+## TodoWrite: Your Project Manager
+
+Claude can maintain a TODO list to track complex tasks:
+
+```
+[x] Complete - Task finished
+[→] In Progress - Currently working on
+[ ] Pending - Not started yet
+```
+
+**When Claude uses todos:**
+- Multi-step tasks with 3+ actions
+- Complex features requiring planning
+- User provides multiple requests at once
+- Any non-trivial work requiring organization
+
+**Why it matters:**
+- See progress in real-time
+- Never lose track of what's next
+- Understand the full scope of work
+
+## The Task Tool: Sub-Agents
+
+Claude can launch specialized sub-agents for specific jobs:
+
+**Explore Agent** - Fast codebase exploration
+- Quick pattern matching
+- Keyword searching
+- Architecture understanding
+
+**Example**: Instead of running multiple grep/glob commands, the Explore agent searches thoroughly and reports back.
+
+**When to use:**
+- "How does authentication work across the codebase?"
+- "Find all API endpoints"
+- "Where is error handling implemented?"
+
+## Parallel Tool Execution
+
+Claude can run multiple operations simultaneously:
+
+**Examples:**
+- Read 5 files at once
+- Search multiple patterns in parallel
+- Run git status + git diff together
+- Install dependencies while analyzing code
+
+**Why it matters**: Speed! Complex tasks finish faster.
+
+## Hands-On Exercise 4.1: TodoWrite in Action
+
+**Task**: Give me a complex request that requires multiple steps.
+
+Examples:
+- "Refactor the authentication module to use async/await and add error handling"
+- "Set up a new Express API with CORS, logging, and error middleware"
+- "Add TypeScript to this project with proper configuration"
+
+Watch how I use TodoWrite to plan and track the work!
+
+---
+
+*[WAIT FOR USER]*
+
+---
+
+## Exercise 4.2: Using the Explore Agent
+
+**Task**: Ask me to explore and explain something complex in your codebase.
+
+Examples:
+- "How does the routing system work?"
+- "Find and explain all database queries"
+- "Where are environment variables used?"
+
+I'll use the Explore agent to thoroughly investigate!
+
+---
+
+*[WAIT FOR USER]*
+
+---
+
+## Exercise 4.3: Parallel Operations
+
+**Task**: Ask me to do multiple independent things at once.
+
+Example: "Show me the package.json, README, and main entry file"
+
+Watch how I execute all three in parallel!
+
+---
+
+*[WAIT FOR USER]*
+
+---
+
+## Module 4 Complete! 🎯
+
+You've mastered:
+✓ Understanding TodoWrite for task tracking
+✓ Using sub-agents for complex exploration
+✓ Parallel tool execution for speed
+✓ When to use specialized agents
+
+**Next**: Customization and personalization! Type "continue" when ready.
+
+---
+
+# Module 5: Customization
+
+## What You'll Learn
+- **Skills** - Reusable AI workflows (like this one!)
+- **Slash commands** - Custom shortcuts
+- **Hooks** - Automating responses to events
+- **Output styles** - Customizing how Claude responds
+- **MCP servers** - Extending Claude's capabilities
+
+## Skills: Reusable AI Workflows
+
+Skills are specialized prompts that give Claude domain-specific expertise.
+
+**Examples:**
+- `frontend-design` - Creates beautiful, creative UIs
+- `webapp-testing` - Tests web apps with Playwright
+- `doc-coauthoring` - Structured documentation workflow
+
+**Skill structure:**
+```yaml
+---
+name: skill-name
+description: When and how to use this skill
+---
+
+[Detailed instructions for Claude]
+```
+
+**Location**: `.claude/skills/` or global `~/.claude/skills/`
+
+## Slash Commands: Custom Shortcuts
+
+Create custom commands for repeated workflows.
+
+**Example**: `/deploy` could:
+1. Run tests
+2. Build the project
+3. Push to production
+4. Notify team
+
+**Location**: `.claude/commands/command-name.md`
+
+## Hooks: Event Automation
+
+React to events automatically:
+- `user-prompt-submit` - Before processing requests
+- `tool-use` - Before using specific tools
+- Custom validations or formatting
+
+**Example**: Auto-format code before committing
+
+## Output Styles: Personalized Responses
+
+Customize how Claude communicates:
+- Tone and style
+- Level of detail
+- Format preferences
+- Technical depth
+
+**Location**: `.claude/styles/`
+
+## Hands-On Exercise 5.1: Create a Slash Command
+
+**Task**: Let's create a simple custom slash command together.
+
+I'll help you create a command that does something useful for your workflow.
+
+Tell me: What repetitive task would you like to turn into a slash command?
+
+Examples:
+- Check code quality (linting, tests, types)
+- Generate documentation
+- Create a new component with boilerplate
+- Review changes before committing
+
+---
+
+*[WAIT FOR USER]*
+
+---
+
+## Exercise 5.2: Explore Existing Skills
+
+**Task**: Ask me to show you what skills are available in your project or globally.
+
+Try it: "What skills do I have?" or "Show me available skills"
+
+---
+
+*[WAIT FOR USER]*
+
+---
+
+## Module 5 Complete! 🎯
+
+You've learned:
+✓ What skills are and how they work
+✓ Creating custom slash commands
+✓ Understanding hooks for automation
+✓ Output styles for personalization
+✓ How to extend Claude's capabilities
+
+**Next**: Web integration and external resources! Type "continue" when ready.
+
+---
+
+# Module 6: Web Integration
+
+## What You'll Learn
+- **WebFetch** - Fetching documentation and web pages
+- **WebSearch** - Searching the web for current info
+- **Chrome integration** - Interacting with browser
+- **Claude Code on the web** - Using outside terminal
+
+## WebFetch: Documentation Access
+
+Fetch and analyze web content:
+- API documentation
+- Library references
+- Blog posts
+- GitHub repos
+
+**Example**: "Fetch the React hooks documentation and help me use useEffect correctly"
+
+**How it works:**
+1. Fetches URL content
+2. Converts HTML to markdown
+3. Analyzes with AI
+4. Provides relevant information
+
+## WebSearch: Current Information
+
+Search the web for up-to-date info:
+- Latest library versions
+- Current best practices
+- Recent blog posts
+- News and updates
+
+**Example**: "Search for the latest Next.js 14 features"
+
+**Note**: Available in US only
+
+## Chrome Integration
+
+Claude Code can interact with Chrome:
+- Fill forms
+- Click buttons
+- Navigate pages
+- Extract data
+- Test web apps
+
+**Use cases:**
+- Automated testing
+- Web scraping
+- Form filling
+- Browser automation
+
+## Claude Code Everywhere
+
+Use Claude Code outside the terminal:
+- **Web interface** - claude.com/code
+- **VS Code extension** - Full IDE integration
+- **JetBrains plugin** - IntelliJ, PyCharm, etc.
+- **Desktop app** - Native application
+- **Slack** - Team collaboration
+
+## Hands-On Exercise 6.1: Fetch Documentation
+
+**Task**: Ask me to fetch documentation for a library or framework you use.
+
+Example: "Fetch the Express.js routing documentation" or "Get the Tailwind CSS docs for flexbox"
+
+---
+
+*[WAIT FOR USER]*
+
+---
+
+## Exercise 6.2: Web Search
+
+**Task**: Ask me to search for current information about a technology.
+
+Example: "Search for Python 3.12 new features" or "Find recent articles about React Server Components"
+
+---
+
+*[WAIT FOR USER]*
+
+---
+
+## Exercise 6.3: Learn About Integration Options
+
+**Task**: Ask me about using Claude Code in your preferred environment.
+
+Example: "How do I use Claude Code in VS Code?" or "Tell me about the Slack integration"
+
+---
+
+*[WAIT FOR USER]*
+
+---
+
+## Module 6 Complete! 🎯
+
+You've learned:
+✓ Fetching web documentation with WebFetch
+✓ Searching for current info with WebSearch
+✓ Chrome integration capabilities
+✓ Using Claude Code across different platforms
+
+**Next**: Advanced workflows for professionals! Type "continue" when ready.
+
+---
+
+# Module 7: Advanced Workflows
+
+## What You'll Learn
+- **Pull requests** - Creating PRs with proper workflow
+- **CI/CD integration** - GitHub Actions & GitLab CI
+- **MCP servers** - Model Context Protocol extensions
+- **IDE integration** - Deep VS Code & JetBrains usage
+- **Team collaboration** - Best practices
+
+## Creating Pull Requests
+
+Claude can create complete PRs:
+
+**The flow:**
+1. Reviews all commits in the branch
+2. Analyzes full diff from base branch
+3. Creates descriptive PR summary
+4. Includes test plan
+5. Pushes and creates PR via GitHub CLI
+
+**Example**: "Create a pull request for these changes"
+
+**What Claude includes:**
+- Summary of all changes (not just last commit!)
+- Bullet points of key modifications
+- Test plan checklist
+- Generated with Claude Code signature
+
+## CI/CD Integration
+
+Run Claude Code in CI/CD pipelines:
+
+**GitHub Actions:**
+```yaml
+- uses: anthropics/claude-code-action@v1
+  with:
+    prompt: "Review this PR and suggest improvements"
+```
+
+**GitLab CI:**
+```yaml
+claude-code-review:
+  script:
+    - claude-code review "$CI_COMMIT_MESSAGE"
+```
+
+**Use cases:**
+- Automated code review
+- Test generation
+- Documentation updates
+- Quality checks
+
+## MCP Servers: Extending Claude
+
+Model Context Protocol allows adding custom capabilities:
+
+**What you can add:**
+- Database access
+- Custom APIs
+- Internal tools
+- Third-party services
+
+**Example MCP servers:**
+- Filesystem access (advanced)
+- Database queries
+- Slack integration
+- Custom business logic
+
+**Installation:**
+```json
+{
+  "mcpServers": {
+    "server-name": {
+      "command": "node",
+      "args": ["path/to/server.js"]
+    }
+  }
+}
+```
+
+## IDE Integration Deep Dive
+
+### VS Code
+- Inline suggestions
+- Chat panel
+- File context awareness
+- Terminal integration
+- Command palette integration
+
+### JetBrains
+- Same capabilities across all IDEs
+- IntelliJ IDEA, PyCharm, WebStorm, etc.
+- Native IDE feel
+- Project context awareness
+
+## Hands-On Exercise 7.1: Create a Pull Request
+
+**Note**: Only do this if you have committed changes on a branch.
+
+**Task**: Ask me to create a pull request for your current branch.
+
+Try it: "Create a pull request for these changes"
+
+Watch how I:
+1. Review all commits
+2. Analyze the full diff
+3. Create a comprehensive PR description
+4. Push and create the PR
+
+---
+
+*[WAIT FOR USER OR SKIP]*
+
+---
+
+## Exercise 7.2: Learn About CI/CD
+
+**Task**: Ask me how you could integrate Claude Code into your CI/CD pipeline.
+
+Try it: "How can I use Claude Code in GitHub Actions?" or "Show me GitLab CI integration"
+
+---
+
+*[WAIT FOR USER]*
+
+---
+
+## Exercise 7.3: MCP Exploration
+
+**Task**: Ask me about MCP servers and what they can do.
+
+Try it: "What are MCP servers?" or "How can I extend Claude Code with custom tools?"
+
+---
+
+*[WAIT FOR USER]*
+
+---
+
+## Module 7 Complete! 🎯
+
+You've learned:
+✓ Creating professional pull requests
+✓ CI/CD integration with GitHub and GitLab
+✓ MCP servers for custom extensions
+✓ Deep IDE integration options
+✓ Advanced collaboration workflows
+
+**Final module**: Power user mastery! Type "continue" when ready.
+
+---
+
+# Module 8: Power User Mastery
+
+## What You'll Learn
+- **Best practices** - Pro patterns and techniques
+- **Performance optimization** - Speed up workflows
+- **Common pitfalls** - What to avoid
+- **Real-world scenarios** - Complex problem-solving
+- **Troubleshooting** - Debugging Claude interactions
+
+## Power User Best Practices
+
+### 1. Be Specific and Direct
+❌ "Can you help with the code?"
+✓ "Refactor the getUserData function in api/users.js to use async/await and add error handling"
+
+### 2. Use Parallel Operations
+❌ Sequential: "Read file1" → wait → "Read file2" → wait
+✓ Parallel: "Read file1 and file2 together"
+
+### 3. Leverage Sub-Agents for Exploration
+❌ "Search for 'auth' in Python files" → "Search for 'login'" → "Search for 'token'"
+✓ "How does authentication work across the codebase?" (uses Explore agent)
+
+### 4. Let Claude Manage Complex Tasks
+❌ Breaking down steps yourself and asking one at a time
+✓ "Implement user authentication with JWT, refresh tokens, and middleware"
+(Claude uses TodoWrite to plan and execute)
+
+### 5. Use the Right Tool for the Job
+- **Grep** - Search file contents
+- **Glob** - Find files by name pattern
+- **Read** - Read specific files
+- **Edit** - Modify existing files (not sed/awk)
+- **Write** - Create new files (not echo)
+- **Bash** - Terminal commands (not file operations)
+
+### 6. Context Management
+- Reference specific files: "In src/app.js:45"
+- Point to line numbers when discussing code
+- Use file paths consistently
+
+### 7. Git Workflow Excellence
+- Let Claude create meaningful commit messages
+- Review diffs before committing
+- Use descriptive branch names
+- Create comprehensive PRs
+
+## Performance Optimization
+
+### Speed Up Complex Tasks
+1. **Parallel reads**: Read multiple files simultaneously
+2. **Specific patterns**: Use precise glob/grep patterns
+3. **Sub-agents**: Let specialized agents handle complex exploration
+4. **Focused requests**: Tell Claude exactly what you need
+
+### Reduce Context Usage
+1. **Avoid reading huge files** unnecessarily
+2. **Use line ranges** for large files: "Read lines 100-200"
+3. **Targeted searches** instead of broad sweeps
+4. **Let agents explore** instead of loading everything into context
+
+## Common Pitfalls to Avoid
+
+### ❌ Don't Do This:
+1. **Asking vague questions** - "Fix the bug"
+2. **Reading files manually then pasting** - Claude can read them
+3. **Making Claude use echo/cat for files** - Use Read/Write/Edit
+4. **Forgetting to commit work** - Secure your progress
+5. **Skipping git diffs** - Always review changes
+6. **Not using todos for complex tasks** - You'll lose track
+7. **Fighting with Claude** - If confused, clarify the request
+
+### ✓ Do This Instead:
+1. **Be specific** - "Fix the TypeError in line 45 of auth.js"
+2. **Direct file access** - "Read src/config.json"
+3. **Use proper tools** - Edit tool for file modifications
+4. **Regular commits** - "Commit these changes with a message about..."
+5. **Review first** - "Show me the diff of my changes"
+6. **Trust the system** - Claude manages complex tasks well
+7. **Iterate** - Refine requests based on results
+
+## Real-World Scenarios
+
+### Scenario 1: Refactoring a Feature
+```
+"I need to refactor the user authentication system to:
+1. Use async/await instead of callbacks
+2. Add input validation
+3. Improve error handling
+4. Add unit tests
+Please analyze the current implementation and create a plan."
+```
+
+Claude will:
+- Create todos for each step
+- Read relevant files
+- Propose refactoring approach
+- Implement changes incrementally
+- Run tests
+
+### Scenario 2: Debugging Production Issue
+```
+"Users are reporting intermittent 500 errors.
+Search the codebase for:
+- Error handling in API routes
+- Database connection issues
+- Timeout configurations
+Help me identify potential causes."
+```
+
+Claude will:
+- Use Explore agent to search comprehensively
+- Read relevant error handling code
+- Analyze configurations
+- Propose fixes
+
+### Scenario 3: Adding a New Feature
+```
+"Add a password reset feature with:
+- Email token generation
+- Expiring reset links
+- Secure password update
+- Email notifications
+Follow our existing auth patterns."
+```
+
+Claude will:
+- Explore existing auth implementation
+- Plan the feature with todos
+- Implement incrementally
+- Add tests
+- Create a PR
+
+## Troubleshooting Guide
+
+### Claude seems confused?
+- **Clarify your request** - Be more specific
+- **Provide context** - Point to specific files
+- **Break it down** - Split complex requests
+
+### Tools not working as expected?
+- **Check file paths** - Must be absolute
+- **Verify permissions** - Can Claude access the files?
+- **Review output** - Read error messages carefully
+
+### Git operations failing?
+- **Check repository status** - Is it a git repo?
+- **Review branches** - Are you on the right branch?
+- **Verify credentials** - Can you push to remote?
+
+### Performance is slow?
+- **Use parallel operations** - Multiple tools at once
+- **Leverage sub-agents** - Let them handle exploration
+- **Be specific** - Avoid unnecessary searching
+
+## Hands-On Exercise 8.1: Complex Real-World Task
+
+**Final Challenge**: Give me a complex, real-world task that requires multiple tools and steps.
+
+This should be something you actually need done in your project. Examples:
+
+1. **Feature Implementation**
+   "Add rate limiting to all API endpoints with Redis caching and monitoring"
+
+2. **Codebase Refactoring**
+   "Convert all class components to functional components with hooks and add TypeScript"
+
+3. **Testing & Quality**
+   "Add integration tests for the authentication flow, set up CI, and configure test coverage reporting"
+
+4. **Documentation & Setup**
+   "Create comprehensive API documentation, set up a documentation site, and add example requests"
+
+Give me your challenge, and watch me use everything you've learned:
+- TodoWrite for planning
+- Parallel operations for speed
+- Sub-agents for exploration
+- Proper tool selection
+- Git workflow
+- Best practices
+
+---
+
+*[WAIT FOR USER TO COMPLETE FINAL CHALLENGE]*
+
+---
+
+## 🎓 CONGRATULATIONS! You're Now a Claude Code Power User!
+
+You've completed all 8 modules and mastered:
+
+✓ **Module 1** - Basic navigation and interaction
+✓ **Module 2** - File operations (Read, Write, Edit, Grep, Glob)
+✓ **Module 3** - Terminal & Git workflows
+✓ **Module 4** - Advanced tools (TodoWrite, sub-agents, parallel execution)
+✓ **Module 5** - Customization (skills, slash commands, hooks)
+✓ **Module 6** - Web integration (WebFetch, WebSearch, Chrome)
+✓ **Module 7** - Advanced workflows (PRs, CI/CD, MCP, IDEs)
+✓ **Module 8** - Power user best practices
+
+## What's Next?
+
+### Keep Learning
+- Explore the official docs: https://code.claude.com/docs
+- Join the community discussions
+- Try advanced MCP servers
+- Create your own skills
+
+### Practice Daily
+- Use Claude Code for real work
+- Experiment with new workflows
+- Share your custom commands and skills
+- Teach others what you've learned
+
+### Advanced Topics
+- Create sophisticated MCP servers
+- Build complex automation skills
+- Integrate with team workflows
+- Contribute to the ecosystem
+
+## Quick Reference Card
+
+**File Operations:**
+- `Read` - View files
+- `Write` - Create files
+- `Edit` - Modify files
+- `Glob` - Find by name pattern
+- `Grep` - Search content
+
+**Execution:**
+- `Bash` - Run commands
+- `Task` - Launch sub-agents
+- Parallel - Multiple tools at once
+
+**Project Management:**
+- `TodoWrite` - Track tasks
+- Git integration - Commits, PRs
+
+**Extensions:**
+- Skills - Reusable workflows
+- Slash commands - Custom shortcuts
+- Hooks - Event automation
+- MCP - Custom capabilities
+
+**Web:**
+- `WebFetch` - Get documentation
+- `WebSearch` - Current info
+- Chrome - Browser automation
+
+## Final Wisdom
+
+**Remember:**
+1. Be specific in your requests
+2. Trust Claude to manage complexity
+3. Use the right tool for each job
+4. Review before committing
+5. Iterate and refine
+6. Have fun and experiment!
+
+You now have the skills to:
+- Build features end-to-end
+- Refactor complex codebases
+- Automate workflows
+- Debug production issues
+- Create custom tooling
+- Work efficiently with AI
+
+**Welcome to the Claude Code power user club!** 🚀
+
+---
+
+## Need Help?
+
+- **Documentation**: https://code.claude.com/docs
+- **Issues**: https://github.com/anthropics/claude-code/issues
+- **Ask Claude**: I'm always here - "Explain how [feature] works"
+
+Type "help" anytime during this tutorial to get assistance!

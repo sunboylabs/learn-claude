@@ -1,0 +1,222 @@
+{
+  "modules": [
+    {
+      "number": 1,
+      "id": "01-first-steps",
+      "name": "First Steps",
+      "description": "Basic navigation and interaction with Claude Code",
+      "timeEstimateMinutes": 15,
+      "exerciseCount": 3,
+      "difficulty": "beginner",
+      "topics": ["Read", "Glob", "Code Understanding"],
+      "category": "foundations"
+    },
+    {
+      "number": 2,
+      "id": "02-file-operations",
+      "name": "File Operations",
+      "description": "Master reading, writing, editing, and searching code",
+      "timeEstimateMinutes": 25,
+      "exerciseCount": 4,
+      "difficulty": "beginner",
+      "topics": ["Read (parallel)", "Grep", "Write", "Edit"],
+      "category": "foundations"
+    },
+    {
+      "number": 3,
+      "id": "03-terminal-git",
+      "name": "Terminal & Git",
+      "description": "Execute shell commands and version control workflows",
+      "timeEstimateMinutes": 25,
+      "exerciseCount": 4,
+      "difficulty": "beginner",
+      "topics": ["Bash", "git status", "git commit", "git push"],
+      "category": "foundations"
+    },
+    {
+      "number": 4,
+      "id": "04-advanced-tools",
+      "name": "Advanced Tools",
+      "description": "Task management, sub-agents, and parallel execution",
+      "timeEstimateMinutes": 30,
+      "exerciseCount": 3,
+      "difficulty": "intermediate",
+      "topics": ["TodoWrite", "Task (Explore agent)", "Parallel tool calls"],
+      "category": "foundations"
+    },
+    {
+      "number": 5,
+      "moduleId": "5A",
+      "id": "05a-skill-creation",
+      "name": "Skill Creation",
+      "description": "Build reusable AI workflows with custom skills",
+      "timeEstimateMinutes": 35,
+      "exerciseCount": 3,
+      "difficulty": "intermediate",
+      "topics": ["Skill architecture", "skill.md", "Instructions", "Testing"],
+      "category": "customization"
+    },
+    {
+      "number": 6,
+      "moduleId": "5B",
+      "id": "05b-slash-commands",
+      "name": "Slash Commands",
+      "description": "Create custom keyboard shortcuts for workflows",
+      "timeEstimateMinutes": 20,
+      "exerciseCount": 3,
+      "difficulty": "intermediate",
+      "topics": ["Command files", "Parameters", "Integration"],
+      "category": "customization"
+    },
+    {
+      "number": 7,
+      "moduleId": "5C",
+      "id": "05c-hooks-mastery",
+      "name": "Hooks Mastery",
+      "description": "Event-driven automation and interceptors",
+      "timeEstimateMinutes": 40,
+      "exerciseCount": 4,
+      "difficulty": "advanced",
+      "topics": ["Hook types", "Node.js scripting", "Event interception", "Validation"],
+      "category": "customization"
+    },
+    {
+      "number": 8,
+      "id": "06-web-integration",
+      "name": "Web Integration",
+      "description": "Fetch documentation, search web, automate browsers",
+      "timeEstimateMinutes": 35,
+      "exerciseCount": 4,
+      "difficulty": "intermediate",
+      "topics": ["WebFetch", "WebSearch", "Chrome/Playwright", "Real-world scenarios"],
+      "category": "integration"
+    },
+    {
+      "number": 9,
+      "moduleId": "7A",
+      "id": "07a-pull-requests-cicd",
+      "name": "Pull Requests & CI/CD",
+      "description": "Professional Git workflows and continuous integration",
+      "timeEstimateMinutes": 40,
+      "exerciseCount": 5,
+      "difficulty": "advanced",
+      "topics": ["PR creation", "GitHub Actions", "GitLab CI", "Code review", "IDE integration"],
+      "category": "integration"
+    },
+    {
+      "number": 10,
+      "moduleId": "7B",
+      "id": "07b-mcp-hands-on",
+      "name": "MCP Hands-On",
+      "description": "Extend Claude with Model Context Protocol",
+      "timeEstimateMinutes": 45,
+      "exerciseCount": 3,
+      "difficulty": "advanced",
+      "topics": ["MCP servers", "Tool creation", "Integration", "Custom protocols"],
+      "category": "integration"
+    },
+    {
+      "number": 11,
+      "id": "08-advanced-git",
+      "name": "Advanced Git",
+      "description": "Branches, conflicts, rebase, and best practices",
+      "timeEstimateMinutes": 30,
+      "exerciseCount": 4,
+      "difficulty": "intermediate",
+      "topics": ["Branch management", "Merge conflicts", "Rebase", "Cherry-pick"],
+      "category": "integration"
+    },
+    {
+      "number": 12,
+      "id": "09-context-memory",
+      "name": "Context Management",
+      "description": "Optimize memory usage and context windows",
+      "timeEstimateMinutes": 35,
+      "exerciseCount": 3,
+      "difficulty": "advanced",
+      "topics": ["Context limits", "Memory optimization", "Summarization", "Best practices"],
+      "category": "advanced"
+    },
+    {
+      "number": 13,
+      "id": "10-power-user-mastery",
+      "name": "Power User Mastery",
+      "description": "Bring everything together with real-world projects",
+      "timeEstimateMinutes": 50,
+      "exerciseCount": 3,
+      "difficulty": "advanced",
+      "topics": ["Complex workflows", "Integration", "Best practices", "Real projects"],
+      "category": "advanced"
+    }
+  ],
+  "totalTimeMinutes": 425,
+  "totalTimeHours": 7.1,
+  "categories": {
+    "foundations": {
+      "name": "Foundations",
+      "description": "Core Claude Code capabilities - essential for all users",
+      "modules": [1, 2, 3, 4],
+      "timeMinutes": 95,
+      "recommended": "required"
+    },
+    "customization": {
+      "name": "Deep Customization",
+      "description": "Build custom skills, commands, and hooks",
+      "modules": [5, 6, 7],
+      "timeMinutes": 95,
+      "recommended": "highly recommended"
+    },
+    "integration": {
+      "name": "Integration & Advanced",
+      "description": "Web tools, CI/CD, MCP, and advanced Git",
+      "modules": [8, 9, 10, 11],
+      "timeMinutes": 150,
+      "recommended": "optional but valuable"
+    },
+    "advanced": {
+      "name": "Advanced Mastery",
+      "description": "Context optimization and power user techniques",
+      "modules": [12, 13],
+      "timeMinutes": 85,
+      "recommended": "optional"
+    }
+  },
+  "learningPaths": {
+    "fastTrack": {
+      "name": "Fast Track (Get Started Now)",
+      "description": "Get productive in 90 minutes - absolute essentials only",
+      "modules": [1, 2, 3, 4],
+      "timeMinutes": 95,
+      "timeHours": 1.6,
+      "recommended": "time-constrained users",
+      "badge": "🚀"
+    },
+    "quickStart": {
+      "name": "Quick Start (Essentials + Web)",
+      "description": "Core tools plus web integration",
+      "modules": [1, 2, 3, 4, 8],
+      "timeMinutes": 130,
+      "timeHours": 2.2,
+      "recommended": "quick productivity",
+      "badge": "⚡"
+    },
+    "fullJourney": {
+      "name": "Full Journey (Recommended)",
+      "description": "Complete mastery of Claude Code",
+      "modules": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
+      "timeMinutes": 425,
+      "timeHours": 7.1,
+      "recommended": "power users",
+      "badge": "🎯"
+    },
+    "customizationFocus": {
+      "name": "Customization Focus",
+      "description": "Learn to extend Claude Code with skills and hooks",
+      "modules": [1, 2, 3, 4, 5, 6, 7],
+      "timeMinutes": 190,
+      "timeHours": 3.2,
+      "recommended": "extensibility",
+      "badge": "🔧"
+    }
+  }
+}
