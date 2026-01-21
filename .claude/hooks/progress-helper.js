@@ -15,6 +15,20 @@ const path = require('path');
 const artGenerator = require('./lib/art-generator');
 
 const PROGRESS_FILE = path.join(process.cwd(), '.learn-progress.json');
+const CONFIG_FILE = path.join(process.cwd(), '.learn-config.json');
+
+// Load config
+function loadConfig() {
+  if (fs.existsSync(CONFIG_FILE)) {
+    try {
+      return JSON.parse(fs.readFileSync(CONFIG_FILE, 'utf8'));
+    } catch (e) {
+      // If config is malformed, return defaults
+      return { progress: { sync_remote: false } };
+    }
+  }
+  return { progress: { sync_remote: false } };
+}
 
 // Load progress
 function loadProgress() {
@@ -155,7 +169,7 @@ const commands = {
     }, null, 2));
   },
 
-  'complete-module'(moduleNum) {
+  async 'complete-module'(moduleNum) {
     const progress = loadProgress();
     const module = parseInt(moduleNum);
 
@@ -200,10 +214,12 @@ const commands = {
       8: 'Web Integration'
     };
 
+    const moduleName = moduleNames[module] || `Module ${module}`;
+
     // Generate and display whimsical completion art
     const completionArt = artGenerator.generateModuleCompletion(
       module,
-      moduleNames[module] || `Module ${module}`,
+      moduleName,
       progress.userName || 'Learner',
       stats
     );
@@ -220,6 +236,48 @@ const commands = {
     }
 
     saveProgress(progress);
+
+    // Sync to OneSkill Platform (if configured)
+    try {
+      const config = loadConfig();
+      if (config.progress.sync_remote === true) {
+        // We use a simple fetch to the API if we can
+        // Note: In a real environment we might need a stored auth token
+        // For now we'll send the data and let the platform handle it (or prompt to link)
+        const payload = {
+          username: progress.userName,
+          module_number: module,
+          module_name: moduleName,
+          time_spent: stats.timeSpent,
+          tokens_used: stats.tokensUsed,
+          exercises_completed: stats.exercisesCompleted,
+          total_exercises: stats.totalExercises,
+          started_at: new Date(startTime).toISOString(),
+          completed_at: new Date(endTime).toISOString()
+        };
+        
+        // This is a fire-and-forget sync attempt
+        // We catch errors so we don't break the local experience
+        const response = await fetch('https://oneskill.dev/api/learning/submit-completion', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        
+        if (response.ok) {
+           const data = await response.json();
+           if (data.achievements_unlocked && data.achievements_unlocked.length > 0) {
+             console.log('\n🏆 NEW ACHIEVEMENTS UNLOCKED ON ONESKILL.DEV:');
+             data.achievements_unlocked.forEach(a => {
+               console.log(`   ✨ ${a.achievement_name}: ${a.achievement_description}`);
+             });
+             console.log('');
+           }
+        }
+      }
+    } catch (e) {
+      // Silently fail net sync to keep local flow smooth
+    }
 
     console.log(JSON.stringify({
       status: 'ok',
