@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn Claude Code - Interactive Agent Skill</title>
+    <style>
+        :root {
+            /* OneSkill Core Palette */
+            --background: #faf9f7;
+            --foreground: #1a1816;
+            --primary: #1a1816;
+            --primary-foreground: #faf9f7;
+            --secondary: #f4f2ed;
+            --secondary-foreground: #1a1816;
+            --accent: #fff9ed;
+            --accent-foreground: #1a1816;
+            --muted: #e8e5df;
+            --muted-foreground: #6e6b66;
+            --border: rgba(26, 24, 22, 0.1);
+            
+            /* Brand Colors */
+            --brand-orange: #cc785c;
+            --brand-orange-light: #e09578;
+            --brand-cream: #fff9ed;
+            
+            /* Typography */
+            --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            
+            /* Spacing */
+            --container-padding: 2rem;
+            --max-width: 1200px;
+            --radius: 0.5rem;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --background: #1a1816;
+                --foreground: #faf9f7;
+                --primary: #faf9f7;
+                --primary-foreground: #1a1816;
+                --secondary: #2a2725;
+                --secondary-foreground: #faf9f7;
+                --muted: #2a2725;
+                --muted-foreground: #a8a5a0;
+                --accent: #2a2725;
+                --border: rgba(250, 249, 247, 0.1);
+            }
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--foreground);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Layout Utilities */
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 var(--container-padding);
+        }
+
+        .section {
+            padding: 5rem 0;
+        }
+
+        .grid {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .grid-2 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+        .grid-3 { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+
+        /* Typography components */
+        h1, h2, h3 {
+            line-height: 1.2;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        h1 { font-size: 3.5rem; margin-bottom: 1.5rem; }
+        h2 { font-size: 2.25rem; margin-bottom: 1rem; }
+        h3 { font-size: 1.5rem; margin-bottom: 0.75rem; }
+        
+        p { margin-bottom: 1.5rem; color: var(--muted-foreground); font-size: 1.125rem; }
+        
+        code {
+            font-family: var(--font-mono);
+            background: var(--muted);
+            padding: 0.2em 0.4em;
+            border-radius: 0.25rem;
+            font-size: 0.9em;
+            color: var(--foreground);
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius);
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+
+        .btn-primary {
+            background-color: var(--brand-orange);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--brand-orange-light);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary);
+            color: var(--foreground);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--muted);
+        }
+
+        /* Header */
+        header {
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-dot {
+            width: 12px;
+            height: 12px;
+            background-color: var(--brand-orange);
+            border-radius: 50%;
+        }
+
+        /* Hero */
+        .hero {
+            padding: 8rem 0 6rem;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background-color: var(--secondary);
+            border-radius: 2rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--brand-orange);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Feature Cards */
+        .feature-card {
+            background: var(--card-bg, var(--background));
+            border: 1px solid var(--border);
+            padding: 2rem;
+            border-radius: var(--radius);
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .feature-card:hover {
+            border-color: var(--brand-orange);
+            transform: translateY(-2px);
+        }
+
+        .icon-box {
+            width: 48px;
+            height: 48px;
+            background: var(--secondary);
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            color: var(--brand-orange);
+        }
+
+        /* Code Window */
+        .code-window {
+            background: #1a1b1e;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            position: relative;
+            text-align: left;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .window-dots {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 1rem;
+        }
+
+        .dot { width: 12px; height: 12px; border-radius: 50%; }
+        .dot-red { background: #ff5f56; }
+        .dot-yellow { background: #ffbd2e; }
+        .dot-green { background: #27c93f; }
+
+        .code-content {
+            font-family: var(--font-mono);
+            color: #e2e8f0;
+            font-size: 0.95rem;
+            overflow-x: auto;
+        }
+
+        .prompt { color: var(--brand-orange); user-select: none; }
+        .cursor { display: inline-block; width: 8px; height: 1.2em; background: var(--brand-orange); animation: blink 1s infinite; vertical-align: text-bottom;}
+
+        @keyframes blink { 50% { opacity: 0; } }
+
+        /* Tracks */
+        .track-card {
+            background: var(--secondary);
+            padding: 2rem;
+            border-radius: var(--radius);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .track-card.featured {
+            background: var(--foreground);
+            color: var(--background);
+        }
+
+        .track-card.featured p { color: #a0a0a0; }
+        .track-card.featured h3 { color: white; }
+
+        .time-badge {
+            font-size: 0.875rem;
+            font-weight: 500;
+            opacity: 0.8;
+            margin-bottom: 0.5rem;
+            display: block;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 4rem 0;
+            margin-top: 4rem;
+            text-align: center;
+        }
+
+        .logo-text { font-weight: bold; font-size: 1.5rem;}
+        
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <div class="logo-dot"></div>
+                <span>OneSkill</span>
+            </div>
+            <nav>
+                <a href="#install" class="btn btn-secondary">Get Started</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="container hero">
+            <span class="hero-badge">New Agent Skill</span>
+            <h1>Master Claude Code<br><span style="color: var(--brand-orange);">Inside Your Terminal</span></h1>
+            <p style="max-width: 600px; margin: 0 auto 2.5rem;">
+                The first self-learning agent skill. Turn Claude into your personal coding instructor with 13 interactive modules, gamified progression, and risk-free practice environments.
+            </p>
+            
+            <div style="display: flex; gap: 1rem; justify-content: center; margin-bottom: 4rem;">
+                <a href="#install" class="btn btn-primary">Install Now</a>
+                <a href="#curriculum" class="btn btn-secondary">View Curriculum</a>
+            </div>
+
+            <!-- Terminal Demo -->
+            <div class="code-window">
+                <div class="window-dots">
+                    <div class="dot dot-red"></div>
+                    <div class="dot dot-yellow"></div>
+                    <div class="dot dot-green"></div>
+                </div>
+                <div class="code-content">
+                    <div><span class="prompt">➜</span> claude</div>
+                    <div style="color: #a0aec0; margin-bottom: 0.5rem;">Starting Claude Code...</div>
+                    <div style="margin-bottom: 0.5rem;">
+                        <span style="color: var(--brand-orange);">╭──</span> <b>Learn Claude Code</b> <span style="color: var(--brand-orange);">──────────────────────────╮</span><br>
+                        <span style="color: var(--brand-orange);">│</span>                                            <span style="color: var(--brand-orange);">│</span><br>
+                        <span style="color: var(--brand-orange);">│</span>  🚀 <b>Module 4 Completed!</b>                     <span style="color: var(--brand-orange);">│</span><br>
+                        <span style="color: var(--brand-orange);">│</span>                                            <span style="color: var(--brand-orange);">│</span><br>
+                        <span style="color: var(--brand-orange);">│</span>  Achievement Unlocked: <b>Agent Commander</b> 🏅   <span style="color: var(--brand-orange);">│</span><br>
+                        <span style="color: var(--brand-orange);">│</span>  Next Up: <b>Skill Creation Mastery</b>            <span style="color: var(--brand-orange);">│</span><br>
+                        <span style="color: var(--brand-orange);">│</span>                                            <span style="color: var(--brand-orange);">│</span><br>
+                        <span style="color: var(--brand-orange);">╰────────────────────────────────────────────╯</span>
+                    </div>
+                    <div><span class="prompt">➜</span> <span class="cursor"></span></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Value Prop -->
+        <section class="container section">
+            <div class="grid grid-3">
+                <div class="feature-card">
+                    <div class="icon-box">🎮</div>
+                    <h3>Gamified Learning</h3>
+                    <p>Learn by doing. Complete real terminal challenges to unlock modules, earn achievements, and view algorithmic art rewards.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon-box">🛡️</div>
+                    <h3>Zero-Risk Sandboxes</h3>
+                    <p>Practice dangerous git ops and refactors in safe, pre-built environments for Python, Java, React, and SQL.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon-box">🧠</div>
+                    <h3>Meta-Learning</h3>
+                    <p>Use the agent to learn the agent. Experience deep integration with MCPs, hooks, and sub-agents firsthand.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Curriculum -->
+        <section id="curriculum" class="container section">
+            <h2 style="text-align: center; margin-bottom: 3rem;">Choose Your Path</h2>
+            <div class="grid grid-2">
+                <div class="track-card featured">
+                    <span class="time-badge" style="color: var(--brand-orange);">90 Minutes</span>
+                    <h3>🚀 Fast Track</h3>
+                    <p>The 80/20 rule applied to coding agents. Master file ops, tool usage, and basic automation in a single session.</p>
+                    <ul style="list-style: none; color: #a0a0a0; margin-top: 1.5rem;">
+                        <li style="margin-bottom: 0.5rem;">✓ File Operations & Grep</li>
+                        <li style="margin-bottom: 0.5rem;">✓ Terminal & Git Basics</li>
+                        <li style="margin-bottom: 0.5rem;">✓ Task Management</li>
+                    </ul>
+                </div>
+                <div class="track-card">
+                    <span class="time-badge">6-8 Hours</span>
+                    <h3>🎓 Full Journey</h3>
+                    <p>For the aspiring power user. Deep dive into creating your own skills, custom hooks, and complex MCP integrations.</p>
+                    <ul style="list-style: none; margin-top: 1.5rem;">
+                        <li style="margin-bottom: 0.5rem;">✓ Everything in Fast Track</li>
+                        <li style="margin-bottom: 0.5rem;">✓ Skill & Tool Creation</li>
+                        <li style="margin-bottom: 0.5rem;">✓ CI/CD & Browser Automation</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Install -->
+        <section id="install" class="section" style="background: var(--secondary);">
+            <div class="container" style="text-align: center; max-width: 900px;">
+                <h2>Start Your Journey</h2>
+                <p>Three simple steps to become a Claude Code power user.</p>
+
+                <div style="margin: 3rem 0; text-align: left; background: var(--background); padding: 2rem; border-radius: var(--radius);">
+                    <h3 style="margin-bottom: 1.5rem;">Installation</h3>
+
+                    <p style="font-weight: 600; margin-bottom: 1rem;">Step 1: Clone the repository</p>
+                    <div class="code-window" style="text-align: left; margin-bottom: 1.5rem;">
+                        <div class="window-dots">
+                            <div class="dot dot-red"></div>
+                            <div class="dot dot-yellow"></div>
+                            <div class="dot dot-green"></div>
+                        </div>
+                        <div class="code-content">
+                            <span class="prompt">$</span> git clone https://github.com/sunboylabs/learn-claude.git
+                        </div>
+                    </div>
+
+                    <p style="font-weight: 600; margin-bottom: 1rem;">Step 2: Run the installation script</p>
+                    <div class="code-window" style="text-align: left; margin-bottom: 1.5rem;">
+                        <div class="window-dots">
+                            <div class="dot dot-red"></div>
+                            <div class="dot dot-yellow"></div>
+                            <div class="dot dot-green"></div>
+                        </div>
+                        <div class="code-content">
+                            <span class="prompt">$</span> bash learn-claude/install.sh
+                        </div>
+                    </div>
+
+                    <p style="font-weight: 600; margin-bottom: 1rem;">Step 3: Open Claude Code and start learning</p>
+                    <div class="code-window" style="text-align: left;">
+                        <div class="window-dots">
+                            <div class="dot dot-red"></div>
+                            <div class="dot dot-yellow"></div>
+                            <div class="dot dot-green"></div>
+                        </div>
+                        <div class="code-content">
+                            <div><span class="prompt">➜</span> I want to learn Claude Code</div>
+                            <div style="color: #a0aec0; margin-top: 0.5rem;">Or run: <span style="color: #e2e8f0;">/learn</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 2rem; padding: 1.5rem; background: var(--background); border-radius: var(--radius); border-left: 4px solid var(--brand-orange);">
+                    <p style="font-size: 0.95rem; text-align: left;">
+                        <strong>That's it!</strong> The installation script copies the skill and all commands to your ~/.claude directory. All 6 slash commands will be immediately available: <code>/learn</code>, <code>/learn-status</code>, <code>/modules</code>, <code>/practice</code>, <code>/celebrate</code>, <code>/learn-reset</code>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="logo" style="justify-content: center; margin-bottom: 1rem;">
+                <div class="logo-dot"></div>
+                <span>OneSkill</span>
+            </div>
+            <p>&copy; 2026 OneSkill. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
