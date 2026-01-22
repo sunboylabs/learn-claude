@@ -93,41 +93,27 @@ Progress saves locally in `.learn-progress.json`. Resume anytime with `/learn`.
 
 ## Installation
 
-### Quick Install
+### One Command Install
 
-Copy the skill to your Claude Code config:
 ```bash
-cp -r /path/to/learn-claude ~/.claude/skills/
+cp -r /path/to/learn-claude ~/.claude/skills/learn-claude
 ```
 
-Then:
-1. Run `/learn` in Claude Code to start learning
-2. The slash commands (`/celebrate`, `/learn-status`, `/modules`, `/practice`, `/learn-reset`) will automatically be available
+That's it! Everything is installed:
+- ✅ Skill definition
+- ✅ All 13 modules
+- ✅ All 6 slash commands (`/learn`, `/celebrate`, `/learn-status`, `/modules`, `/practice`, `/learn-reset`)
+- ✅ Progress tracking
+- ✅ Practice projects
 
-### What Gets Installed
+### Start Learning
 
-```
-~/.claude/
-├── skills/learn-claude/           # Main skill (copy here)
-│   ├── skill.md                   # Skill definition
-│   ├── modules/                   # 13 learning modules
-│   ├── .claude/commands/          # Slash commands
-│   ├── .claude/hooks/             # Progress tracking
-│   └── .claude/hooks/lib/         # Shared libraries
-└── commands/                       # Your global commands
-```
+Open Claude Code and:
+- Say: **"I want to learn Claude Code"**
+- Or run: **`/learn`**
 
-### What's Tracked Locally
+Choose your learning path and language, and you're off!
 
-Your learning progress is saved in your current working directory as `.learn-progress.json`. No external data collection, no cloud sync.
+### How Progress is Tracked
 
-## Troubleshooting
-
-**Slash commands not found?**
-- Ensure you copied the skill to `~/.claude/skills/learn-claude/`
-- Restart Claude Code
-- Run `/learn` to initialize
-
-**Library not found errors?**
-- Commands dynamically find the skill libraries in multiple locations
-- If it still fails, try: `cp -r ~/.claude/skills/learn-claude ~/.claude/skills/` again
+Your learning progress is saved locally in `.learn-progress.json` (in your working directory). No external data collection, no cloud sync, no account needed.
