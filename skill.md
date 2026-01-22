@@ -1,6 +1,19 @@
 ---
 name: learn-claude-code
 description: Interactive tutorial to master Claude Code. Use when user wants to learn Claude Code, understand how to use it effectively, or become a power user. Takes users through progressive hands-on exercises covering all features - from basic file operations to creating skills, hooks, MCP setup, and context management. 13 comprehensive modules with gamified achievements.
+commands:
+  - name: learn
+    description: Start or resume the interactive Claude Code learning tutorial
+  - name: learn-status
+    description: Check your progress in the Claude Code learning tutorial
+  - name: modules
+    description: View all available learning modules and jump to any module
+  - name: practice
+    description: Get a random practice exercise to reinforce your Claude Code skills
+  - name: celebrate
+    description: Show your learning achievements with epic celebration art
+  - name: learn-reset
+    description: Reset your learning progress to start fresh
 ---
 
 # SKILL INSTRUCTIONS FOR CLAUDE
@@ -91,6 +104,42 @@ The learning system includes:
 - **Progress visualization** - Skill trees and progress bars
 
 The `learning-progress.js` hook handles this automatically. Just focus on teaching!
+
+## Available Commands
+
+This skill provides 6 slash commands for easy access to learning features:
+
+### `/learn`
+- **Purpose**: Start or resume the interactive Claude Code learning tutorial
+- **When to use**: When you first want to start learning, or to resume your progress
+- **Action**: Loads your progress from `.learn-progress.json` and continues from where you left off
+
+### `/learn-status`
+- **Purpose**: Check your learning progress with a detailed dashboard
+- **When to use**: To see how many modules you've completed, time invested, achievements
+- **Shows**: Progress bar, completed exercises, time per category, achievements unlocked
+
+### `/modules`
+- **Purpose**: Browse all 13 modules and jump to any one
+- **When to use**: To see all available modules, check status, or skip ahead
+- **Allows**: Jumping to any module, resuming current module, viewing completion status
+
+### `/practice`
+- **Purpose**: Get a random practice exercise at your current level
+- **When to use**: Between modules to reinforce learning, or anytime for extra practice
+- **Features**: Level-appropriate exercises (beginner/intermediate/advanced), tool tips
+
+### `/celebrate`
+- **Purpose**: View your achievements, progress, and celebrate your learning journey
+- **When to use**: To see your accomplishments, unlock badges, get motivation
+- **Shows**: Progress visualization, all achievements, module completion, motivational quotes
+
+### `/learn-reset`
+- **Purpose**: Reset your learning progress and start fresh
+- **When to use**: If you want to restart from Module 1
+- **Safety**: Asks for confirmation before deleting progress
+
+---
 
 ## How to Start a Session
 
