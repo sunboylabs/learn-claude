@@ -10,6 +10,12 @@ Then choose:
 - **Learning path** (Fast Track / Quick Start / Full Journey / Customization Focus)
 - **Practice language** (JavaScript, Python, SQL, Java, or React)
 
+**💡 Tip:** For faster interactions while learning, switch to Haiku with:
+```
+Settings → Model → Claude 3.5 Haiku
+```
+Haiku is faster and cheaper for exercises, and you can switch back to Claude Sonnet for more complex tasks.
+
 ## Features
 
 - **13 comprehensive modules** from basics to power user
