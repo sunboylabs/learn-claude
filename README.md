@@ -93,18 +93,23 @@ Progress saves locally in `.learn-progress.json`. Resume anytime with `/learn`.
 
 ## Installation
 
-### One Command Install
+### Easiest: Use the Installation Script
+
+```bash
+bash /path/to/learn-claude/install.sh
+```
+
+Or manually copy to your system:
 
 ```bash
 cp -r /path/to/learn-claude ~/.claude/skills/learn-claude
+cp ~/.claude/skills/learn-claude/.claude/commands/*.md ~/.claude/commands/
 ```
 
-That's it! Everything is installed:
-- ✅ Skill definition
-- ✅ All 13 modules
-- ✅ All 6 slash commands (`/learn`, `/celebrate`, `/learn-status`, `/modules`, `/practice`, `/learn-reset`)
-- ✅ Progress tracking
-- ✅ Practice projects
+Both methods install everything you need:
+- ✅ Skill definition and modules
+- ✅ All 6 slash commands globally available
+- ✅ Progress tracking and practice projects
 
 ### Start Learning
 
