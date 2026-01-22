@@ -1,109 +1,107 @@
+#!/usr/bin/env node
 ---
 description: View all available learning modules and jump to any module
 ---
 
-**IMPORTANT:** Load module metadata and progress, then display the beautiful module selection menu.
+// Browse and jump to any learning module
 
-## Instructions:
+const fs = require('fs');
+const path = require('path');
 
-1. **Load module metadata** - Read this file:
-   `~/.claude/skills/learn-claude/module-metadata.json`
+const PROGRESS_FILE = path.join(process.cwd(), '.learn-progress.json');
+const colors = require('../../../learn-claude/.claude/hooks/lib/colors.js');
 
-2. **Load progress file** (if exists) - Try to read:
-   `./.learn-progress.json`
+const MODULES = [
+  { id: 1, name: 'First Steps', category: 'Foundations', duration: 15, topics: 'Navigation, basic interactions' },
+  { id: 2, name: 'File Operations', category: 'Foundations', duration: 25, topics: 'Read, Write, Edit, Grep, Glob' },
+  { id: 3, name: 'Terminal & Git', category: 'Foundations', duration: 25, topics: 'Shell commands, version control' },
+  { id: 4, name: 'Advanced Tools', category: 'Foundations', duration: 30, topics: 'TodoWrite, agents, parallel execution' },
+  { id: '5a', name: 'Skill Creation', category: 'Customization', duration: 35, topics: 'Reusable AI workflows' },
+  { id: '5b', name: 'Slash Commands', category: 'Customization', duration: 20, topics: 'Custom shortcuts' },
+  { id: '5c', name: 'Hooks Mastery', category: 'Customization', duration: 40, topics: 'Event-driven automation' },
+  { id: 6, name: 'Web Integration', category: 'Integration', duration: 35, topics: 'WebFetch, WebSearch, browser tools' },
+  { id: '7a', name: 'Pull Requests & CI/CD', category: 'Integration', duration: 40, topics: 'GitHub Actions, workflows' },
+  { id: '7b', name: 'MCP Hands-On', category: 'Integration', duration: 45, topics: 'External tool integration' },
+  { id: 8, name: 'Advanced Git', category: 'Integration', duration: 30, topics: 'Branches, conflicts, rebase' },
+  { id: 9, name: 'Context Management', category: 'Advanced', duration: 35, topics: 'Memory optimization' },
+  { id: 10, name: 'Power User Mastery', category: 'Advanced', duration: 50, topics: 'Real-world projects' }
+];
 
-   If it doesn't exist, assume new user (no completed modules, current module = 1).
+function main() {
+  let progress = { completedModules: [], currentModule: 1 };
 
-3. **Display the module selection menu** - Format it like this:
+  if (fs.existsSync(PROGRESS_FILE)) {
+    try {
+      progress = JSON.parse(fs.readFileSync(PROGRESS_FILE, 'utf8'));
+    } catch (error) {
+      console.error('Error reading progress:', error.message);
+    }
+  }
 
-```
-╔══════════════════════════════════════════════════════════════════════════╗
-║  Claude Code Mastery - All Modules                                      ║
-╚══════════════════════════════════════════════════════════════════════════╝
+  displayModuleMenu(progress);
+}
 
-📚 FOUNDATIONS (95 min) - Essential for all users
-  1. ✅  First Steps                    [15 min] Basic navigation
-  2. ✅  File Operations                [25 min] Read, Write, Edit, Grep
-  3. 🔄  Terminal & Git                 [25 min] Shell & version control
-  4. ⭕  Advanced Tools                 [30 min] Agents & parallel execution
+function displayModuleMenu(progress) {
+  console.log('\n' + colors.bold(colors.cyan('╔════════════════════════════════════════════════════════════════════╗')));
+  console.log(colors.cyan('║') + colors.bold('  Claude Code Mastery - All Modules  ') + colors.cyan('║'));
+  console.log(colors.cyan('╚════════════════════════════════════════════════════════════════════╝\n'));
 
-🎨 DEEP CUSTOMIZATION (95 min) - Build your own workflows
-  5. ⭕  5A: Skill Creation            [35 min] Reusable AI workflows
-  6. ⭕  5B: Slash Commands            [20 min] Custom shortcuts
-  7. ⭕  5C: Hooks Mastery             [40 min] Event-driven automation
+  // Group by category and display
+  const categories = ['Foundations', 'Customization', 'Integration', 'Advanced'];
+  let moduleNum = 1;
 
-🔗 INTEGRATION & ADVANCED (150 min) - Professional workflows
-  8. ⭕  Web Integration               [35 min] Fetch docs, search, browser
-  9. ⭕  7A: Pull Requests & CI/CD     [40 min] GitHub Actions, GitLab CI
- 10. ⭕  7B: MCP Hands-On              [45 min] External tool integration
- 11. ⭕  Advanced Git                  [30 min] Branches, conflicts, rebase
+  categories.forEach(category => {
+    const categoryModules = MODULES.filter(m => m.category === category);
+    const categoryCompleted = categoryModules.filter(m => progress.completedModules.includes(m.id)).length;
+    const icon = getCategoryIcon(category);
 
-🚀 ADVANCED MASTERY (85 min) - Power user techniques
- 12. ⭕  Context Management            [35 min] Memory optimization
- 13. ⭕  Power User Mastery            [50 min] Real-world projects
+    console.log(colors.bold(icon + ' ' + category.toUpperCase() + ' (' + categoryCompleted + '/' + categoryModules.length + ')\n'));
 
-──────────────────────────────────────────────────────────────────────────
-Progress: 2/13 modules (15%) | Time invested: 0.7 hours | 6.4 hours remaining
-Current: Module 3 - Terminal & Git
-──────────────────────────────────────────────────────────────────────────
-```
+    categoryModules.forEach(module => {
+      const isCompleted = progress.completedModules.includes(module.id);
+      const isCurrent = progress.currentModule === module.id;
 
-**Legend:**
-- ✅ Completed module
-- 🔄 Current module (in progress)
-- ⭕ Not started
+      let status = '⭕ ';
+      if (isCompleted) {
+        status = colors.green('✅ ');
+      } else if (isCurrent) {
+        status = colors.cyan('🔄 ');
+      }
 
-4. **Ask user for navigation choice:**
-```
-What would you like to do?
+      const moduleLabel = typeof module.id === 'string' ? module.id.toUpperCase() : module.id;
+      console.log('  ' + moduleNum + '. ' + status + ' Module ' + moduleLabel + ': ' + module.name);
+      console.log('     [' + module.duration + ' min] ' + colors.gray(module.topics) + '\n');
 
-• Type a module number (1-13) to jump to that module
-• Type "continue" to resume Module 3 (Terminal & Git)
-• Type "status" to see detailed progress with /learn-status
+      moduleNum++;
+    });
+  });
 
-Your choice:
-```
+  // Progress stats
+  const completed = progress.completedModules.length;
+  const percent = Math.round((completed / 13) * 100);
+  console.log(colors.gray('─'.repeat(70)));
+  console.log(colors.bold('Progress: ') + colors.cyan(completed + '/13') + ' modules (' + percent + '%)');
+  console.log(colors.bold('Current: ') + colors.yellow('Module ' + progress.currentModule));
+  console.log(colors.gray('─'.repeat(70)) + '\n');
 
-5. **When user chooses a module number**:
-   - Validate it's between 1-13
-   - Show module preview from metadata:
-   ```
-   ╔══════════════════════════════════════════════════════════════╗
-   ║  Module 7: 5C - Hooks Mastery                                ║
-   ╚══════════════════════════════════════════════════════════════╝
+  console.log(colors.bold('Navigation:\n'));
+  console.log('  Type a module number (1-13) to jump to that module');
+  console.log('  Type "continue" to resume your current module');
+  console.log('  Type "status" to see detailed progress\n');
+}
 
-   ⏱️  Estimated time: 40 minutes
-   📝 Exercises: 4 hands-on exercises
-   🎯 Difficulty: Advanced
+function getCategoryIcon(category) {
+  const icons = {
+    'Foundations': '📚',
+    'Customization': '🎨',
+    'Integration': '🔗',
+    'Advanced': '🚀'
+  };
+  return icons[category] || '📖';
+}
 
-   What you'll learn:
-   • Hook types and event interception
-   • Node.js scripting for automation
-   • Building a commit validator
-   • Creating custom validation logic
+if (require.main === module) {
+  main();
+}
 
-   Topics covered: Hook types, Node.js scripting, Event interception, Validation
-
-   Ready to start Module 7? (yes/no)
-   ```
-
-6. **When user confirms**:
-   - Read the module file: `~/.claude/skills/learn-claude/modules/[module-id].md`
-   - Update `.learn-progress.json`:
-     ```bash
-     node ~/.claude/skills/learn-claude/.claude/hooks/progress-helper.js start-exercise [first-exercise-id]
-     ```
-   - Display the module content to the user
-   - Guide them through exercises
-
-7. **When user types "continue"**:
-   - Resume their current module from progress file
-   - Load the appropriate module file
-   - Continue from where they left off
-
-**This command enables:**
-- ✅ Visual overview of all modules with time estimates
-- ✅ Easy navigation - jump to any module
-- ✅ Clear progress tracking with completion status
-- ✅ Flexible learning - go forward, backward, or skip around
-- ✅ Module previews before committing time
+module.exports = { displayModuleMenu };
