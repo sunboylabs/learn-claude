@@ -7,9 +7,27 @@ description: View all available learning modules and jump to any module
 
 const fs = require('fs');
 const path = require('path');
+const os = require('os');
+
+// Find the skill library directory
+function findSkillLibs() {
+  const possiblePaths = [
+    path.join(os.homedir(), '.claude', 'skills', 'learn-claude', '.claude', 'hooks', 'lib'),
+    path.join(__dirname, '..', '..', '..', 'skills', 'learn-claude', '.claude', 'hooks', 'lib'),
+    path.join(process.cwd(), '.claude', 'hooks', 'lib')
+  ];
+
+  for (const dir of possiblePaths) {
+    if (fs.existsSync(dir)) return dir;
+  }
+
+  throw new Error('Could not find skill libraries. Ensure learn-claude is installed in ~/.claude/skills/');
+}
+
+const libDir = findSkillLibs();
+const colors = require(path.join(libDir, 'colors.js'));
 
 const PROGRESS_FILE = path.join(process.cwd(), '.learn-progress.json');
-const colors = require('../../../learn-claude/.claude/hooks/lib/colors.js');
 
 const MODULES = [
   { id: 1, name: 'First Steps', category: 'Foundations', duration: 15, topics: 'Navigation, basic interactions' },

@@ -91,12 +91,43 @@ Progress saves locally in `.learn-progress.json`. Resume anytime with `/learn`.
 - **Smart progression** - Commands auto-detect your current level and adapt content
 - **Progress tracking** - All data persists in `.learn-progress.json` for seamless resumption
 
-## Setup (Optional - comes with the skill)
+## Installation
 
-If installing manually:
+### Quick Install
+
+Copy the skill to your Claude Code config:
 ```bash
-# Add to your .claude/hooks/learning-progress.js
-# Enable progress tracking in .claude/config.json
+cp -r /path/to/learn-claude ~/.claude/skills/
 ```
 
-That's it. No external data collection, no cloud sync.
+Then:
+1. Run `/learn` in Claude Code to start learning
+2. The slash commands (`/celebrate`, `/learn-status`, `/modules`, `/practice`, `/learn-reset`) will automatically be available
+
+### What Gets Installed
+
+```
+~/.claude/
+├── skills/learn-claude/           # Main skill (copy here)
+│   ├── skill.md                   # Skill definition
+│   ├── modules/                   # 13 learning modules
+│   ├── .claude/commands/          # Slash commands
+│   ├── .claude/hooks/             # Progress tracking
+│   └── .claude/hooks/lib/         # Shared libraries
+└── commands/                       # Your global commands
+```
+
+### What's Tracked Locally
+
+Your learning progress is saved in your current working directory as `.learn-progress.json`. No external data collection, no cloud sync.
+
+## Troubleshooting
+
+**Slash commands not found?**
+- Ensure you copied the skill to `~/.claude/skills/learn-claude/`
+- Restart Claude Code
+- Run `/learn` to initialize
+
+**Library not found errors?**
+- Commands dynamically find the skill libraries in multiple locations
+- If it still fails, try: `cp -r ~/.claude/skills/learn-claude ~/.claude/skills/` again

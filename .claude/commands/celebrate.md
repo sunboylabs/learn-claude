@@ -7,11 +7,29 @@ description: Show your learning achievements with epic celebration art!
 
 const fs = require('fs');
 const path = require('path');
+const os = require('os');
+
+// Find the skill library directory
+function findSkillLibs() {
+  const possiblePaths = [
+    path.join(os.homedir(), '.claude', 'skills', 'learn-claude', '.claude', 'hooks', 'lib'),
+    path.join(__dirname, '..', '..', '..', 'skills', 'learn-claude', '.claude', 'hooks', 'lib'),
+    path.join(process.cwd(), '.claude', 'hooks', 'lib')
+  ];
+
+  for (const dir of possiblePaths) {
+    if (fs.existsSync(dir)) return dir;
+  }
+
+  throw new Error('Could not find skill libraries. Ensure learn-claude is installed in ~/.claude/skills/');
+}
+
+const libDir = findSkillLibs();
 
 // Import libraries
-const artGenerator = require('../../../learn-claude/.claude/hooks/lib/art-generator.js');
-const quotesLibrary = require('../../../learn-claude/.claude/hooks/lib/quotes-library.js');
-const colors = require('../../../learn-claude/.claude/hooks/lib/colors.js');
+const artGenerator = require(path.join(libDir, 'art-generator.js'));
+const quotesLibrary = require(path.join(libDir, 'quotes-library.js'));
+const colors = require(path.join(libDir, 'colors.js'));
 
 const PROGRESS_FILE = path.join(process.cwd(), '.learn-progress.json');
 
