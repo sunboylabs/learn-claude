@@ -34,7 +34,14 @@ function loadProgress() {
     lastActivity: null,
     achievements: [],
     toolsUsedInSession: [],
-    userName: process.env.USER || 'Learner'
+    userName: process.env.USER || 'Learner',
+    // Exercise streak tracking
+    exerciseStreak: 0,
+    longestStreak: 0,
+    lastExerciseCompletedAt: null,
+    // Exercise timing for speed bonuses
+    exerciseStartTimes: {},
+    exerciseCompletionTimes: {}
   };
 }
 
@@ -98,8 +105,47 @@ const commands = {
   'complete-exercise'(exerciseId) {
     const progress = loadProgress();
 
+    // Initialize tracking fields if missing
+    if (!progress.exerciseStreak) progress.exerciseStreak = 0;
+    if (!progress.longestStreak) progress.longestStreak = 0;
+    if (!progress.exerciseStartTimes) progress.exerciseStartTimes = {};
+    if (!progress.exerciseCompletionTimes) progress.exerciseCompletionTimes = {};
+
+    const celebrations = [];
+
     if (!progress.exercisesCompleted.includes(exerciseId)) {
       progress.exercisesCompleted.push(exerciseId);
+
+      // Update exercise streak
+      progress.exerciseStreak++;
+      if (progress.exerciseStreak > progress.longestStreak) {
+        progress.longestStreak = progress.exerciseStreak;
+      }
+
+      // Check for streak milestones
+      if (progress.exerciseStreak >= 3) {
+        celebrations.push(`🎉 ${progress.exerciseStreak} exercises in a row! You're on fire!`);
+      }
+      if (progress.exerciseStreak >= 5) {
+        celebrations.push(`🔥 Incredible! ${progress.exerciseStreak}-exercise streak!`);
+      }
+
+      // Check for speed bonus
+      const startTime = progress.exerciseStartTimes[exerciseId];
+      const completionTime = Date.now();
+      if (startTime) {
+        const duration = (completionTime - startTime) / 1000; // seconds
+        progress.exerciseCompletionTimes[exerciseId] = duration;
+
+        if (duration < 120) { // Under 2 minutes
+          const minutes = Math.floor(duration / 60);
+          const seconds = Math.floor(duration % 60);
+          const timeStr = minutes > 0 ? `${minutes}m ${seconds}s` : `${seconds}s`;
+          celebrations.push(`⚡ SPEED BONUS! Completed in ${timeStr}!`);
+        }
+      }
+
+      progress.lastExerciseCompletedAt = new Date().toISOString();
     }
 
     progress.lastActivity = `completed exercise ${exerciseId}`;
@@ -119,17 +165,26 @@ const commands = {
       const nextModule = getModule(nextExercise);
       if (nextModule !== progress.currentModule) {
         progress.currentModule = nextModule;
+        // Reset streak when moving to new module (optional - can be removed if you want continuous streaks)
+        // progress.exerciseStreak = 0;
       }
     }
 
     saveProgress(progress);
+
+    // Display celebrations
+    if (celebrations.length > 0) {
+      console.log('\n' + celebrations.join('\n') + '\n');
+    }
 
     console.log(JSON.stringify({
       status: 'ok',
       completed: exerciseId,
       nextExercise: progress.currentExercise,
       currentModule: progress.currentModule,
-      moduleComplete: isModuleComplete(moduleNum, progress)
+      moduleComplete: isModuleComplete(moduleNum, progress),
+      streak: progress.exerciseStreak,
+      celebrations: celebrations
     }, null, 2));
   },
 
@@ -145,6 +200,10 @@ const commands = {
     if (!progress.moduleStartTimes[moduleNum]) {
       progress.moduleStartTimes[moduleNum] = Date.now();
     }
+
+    // Track exercise start time for speed bonuses
+    if (!progress.exerciseStartTimes) progress.exerciseStartTimes = {};
+    progress.exerciseStartTimes[exerciseId] = Date.now();
 
     saveProgress(progress);
 

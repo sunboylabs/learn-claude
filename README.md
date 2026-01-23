@@ -23,6 +23,7 @@ Haiku is faster and cheaper for exercises, and you can switch back to Claude Son
 - **5 practice projects** in different languages with real bugs
 - **Auto-detected progression** - exercises complete as you use tools
 - **Gamified** - achievements, celebrations, progress tracking
+- **Dynamic statusline** - see your progress at a glance in the status bar
 - **100% local** - all data stays on your machine
 
 ## Commands
@@ -122,3 +123,26 @@ Choose your learning path and language, and you're off!
 ### How Progress is Tracked
 
 Your learning progress is saved locally in `.learn-progress.json` (in your working directory). No external data collection, no cloud sync, no account needed.
+
+## Dynamic Statusline
+
+The learn-claude skill includes a dynamic statusline that displays your learning progress directly in the Claude Code status bar. When you have an active learning session, you'll see:
+
+**Example:**
+```
+📚 Module 3: Terminal & Git • 75% Complete • 3 exercises done
+```
+
+**What it shows:**
+- Current module number and name
+- Completion percentage for the current module
+- Number of exercises completed in the module
+
+**When no progress exists:**
+```
+🚀 Start Learning - Run /learn to begin
+```
+
+The statusline automatically updates as you complete exercises and progress through modules. It works by reading your `.learn-progress.json` file in the current working directory and calculating real-time statistics.
+
+**Note:** The statusline is configured in `.claude/settings.local.json` and only appears when the learn-claude skill's configuration is active in your project.

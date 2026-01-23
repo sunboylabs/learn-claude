@@ -1,5 +1,13 @@
 # Module 5A: Skill Creation Mastery 🛠️
 
+## ⚡ Quick Summary
+
+- Skills are reusable specialized prompts that extend Claude Code's capabilities
+- You'll create code-reviewer, bug-finder, and test-generator skills
+- Master prompt engineering techniques for effective skills
+- Learn when to use skills vs commands vs hooks
+- Estimated time: 30-40 minutes
+
 ## What You'll Learn
 
 Skills are **specialized, reusable prompts** that extend Claude Code's capabilities. Instead of explaining the same task repeatedly, you create a skill once and invoke it anytime!
@@ -40,6 +48,22 @@ A skill is a markdown file with:
 - Commands with arguments
 - Tasks that don't need much context
 
+### 🎯 Quick Win (60 seconds)
+
+Try this: Create a minimal skill file at `.claude/skills/hello.md` with just frontmatter:
+```yaml
+---
+name: hello
+description: A friendly greeting skill
+---
+
+Say hello and introduce yourself as a helpful coding assistant!
+```
+
+Then invoke it: "Use the hello skill"
+
+---
+📍 **Section 1 of 4** • ⏱️ ~30 min remaining
 ---
 
 ## Skill Anatomy
@@ -219,6 +243,26 @@ Watch how I adopt the code-reviewer persona!
 
 ---
 
+### 💡 Real-World Example
+
+**Scenario:** Your team needs consistent code reviews but reviewers focus on different things
+
+**Solution:** Create a standardized code-reviewer skill that always checks security, bugs, performance, and best practices
+
+**Code:** The skill you just created! Now every code review follows the same comprehensive checklist, ensuring nothing is missed.
+
+---
+**Navigation:** [← Back to Top](#module-5a-skill-creation-mastery-️) | [Menu](#what-youll-learn) | [Next: Prompt Engineering →](#prompt-engineering-for-skills)
+**Progress:** ███░░░░░░░ 25% through this module
+---
+
+## 📖 Part 2: Prompt Engineering Techniques
+*Writing effective skill instructions*
+
+---
+📍 **Section 2 of 4** • ⏱️ ~20 min remaining
+---
+
 ## Prompt Engineering for Skills
 
 ### Principle 1: Be Specific
@@ -362,6 +406,22 @@ After creating it, test it: "Use the bug-finder skill on src/utils/validator.js"
 
 *[WAIT FOR USER TO COMPLETE EXERCISE 5A.2]*
 
+---
+
+### 🎯 Quick Win (90 seconds)
+
+Try this: Take your code-reviewer skill and add a "Positive Observations" section to always highlight what the code does well. This makes reviews more balanced and constructive!
+
+---
+**Navigation:** [← Previous: Prompt Engineering](#prompt-engineering-for-skills) | [Menu](#what-youll-learn) | [Next: Advanced Patterns →](#advanced-skill-patterns)
+**Progress:** █████░░░░░ 50% through this module
+---
+
+## 📖 Part 3: Advanced Skill Patterns
+*Multi-file analysis and complex workflows*
+
+---
+📍 **Section 3 of 4** • ⏱️ ~10 min remaining
 ---
 
 ## Advanced Skill Patterns
@@ -529,6 +589,26 @@ Take one of your created skills and improve it!
 
 ---
 
+### 💡 Real-World Example
+
+**Scenario:** You spend too much time writing unit tests manually
+
+**Solution:** Create a test-generator skill that analyzes functions and automatically generates comprehensive test cases
+
+**Code:** Your test-generator skill! It reads the function signature, understands edge cases, and generates 5+ test cases covering positive, negative, and boundary conditions.
+
+---
+**Navigation:** [← Previous: Advanced Patterns](#advanced-skill-patterns) | [Menu](#what-youll-learn) | [Next: Sharing Skills →](#sharing-and-distributing-skills)
+**Progress:** ███████░░░ 75% through this module
+---
+
+## 📖 Part 4: Sharing and Real-World Examples
+*Distribution and production-ready skills*
+
+---
+📍 **Section 4 of 4** • ⏱️ ~5 min remaining
+---
+
 ## Sharing and Distributing Skills
 
 ### Gitignore Considerations
@@ -687,6 +767,125 @@ For functions, include:
 - @throws/exceptions
 - @example with working code
 ```
+
+---
+
+### 💡 Real-World Example
+
+**Scenario:** Your team uses different documentation styles across repositories
+
+**Solution:** Create a doc-writer skill with your team's specific documentation standards built in
+
+**Code:** The doc-writer skill example above, but customized with your team's JSDoc conventions, example format, and required sections. Now all documentation is consistent!
+
+---
+**Navigation:** [← Previous: Sharing Skills](#sharing-and-distributing-skills) | [Menu](#what-youll-learn) | [Back to Top ↑](#module-5a-skill-creation-mastery-️)
+**Progress:** ██████████ 100% complete!
+---
+
+## 📋 Quick Reference Card
+
+### Skill File Structure
+```markdown
+---
+name: skill-name
+description: Brief description (1-2 sentences)
+---
+
+# Skill Title
+
+## Your Role
+You are a [expert/specialist] who...
+
+## Your Task
+1. First step
+2. Second step
+3. Third step
+
+## Guidelines
+- Important rule 1
+- Important rule 2
+
+## Output Format
+Provide your response as...
+```
+
+### Essential Frontmatter Keys
+| Key | Required | Purpose | Example |
+|-----|----------|---------|---------|
+| `name` | Yes | How to invoke the skill | `code-reviewer` |
+| `description` | Yes | Shows in skill list | `Reviews code for bugs and best practices` |
+
+### Skill Prompt Patterns
+
+**1. Role Definition**
+```markdown
+You are an experienced [role] with expertise in:
+- Specific skill 1
+- Specific skill 2
+- Specific skill 3
+```
+
+**2. Task Breakdown**
+```markdown
+When invoked, you should:
+1. Concrete action with tool
+2. Specific analysis step
+3. Output generation
+```
+
+**3. Structured Output**
+```markdown
+Structure your response as:
+### Section 1
+[Content]
+
+### Section 2
+[Content]
+```
+
+**4. Examples and Patterns**
+```markdown
+Look for issues like:
+
+**Pattern Name:**
+```language
+// BAD example
+// GOOD example
+```
+
+### File Organization
+```
+.claude/
+└── skills/
+    ├── code-reviewer.md     # Code analysis
+    ├── test-generator.md    # Test creation
+    ├── bug-finder.md        # Bug detection
+    └── doc-writer.md        # Documentation
+```
+
+### Best Practices Checklist
+- ✅ Use clear, descriptive skill names (kebab-case)
+- ✅ Write detailed role definitions with specific expertise
+- ✅ Provide concrete examples in prompts
+- ✅ Structure output format explicitly
+- ✅ Test on multiple codebases before sharing
+- ✅ Set constraints (time limits, scope)
+- ❌ Don't make skills too broad
+- ❌ Don't include secrets in skill files
+- ❌ Don't assume project structure without checking
+
+### Common Skill Invocation
+```
+"Use the [skill-name] skill to [task]"
+"Invoke [skill-name] on [target]"
+```
+
+### Testing Your Skills
+1. Test invocation: Can you call it naturally?
+2. Test functionality: Does it do what it should?
+3. Test clarity: Is output actionable and clear?
+4. Test scope: Does it stay focused on its role?
 
 ---
 

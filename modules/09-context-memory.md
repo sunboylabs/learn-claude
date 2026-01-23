@@ -1,5 +1,16 @@
 # Module 9: Context & Memory Management 🧠
 
+## ⚡ Quick Summary
+
+- **Context window is limited** - Claude's memory fills up like RAM
+- **# annotations** help Claude remember key information across conversations
+- **Read strategically** - Use line ranges, grep instead of reading whole files
+- **Agents have separate context** - Sub-agents work independently without polluting main context
+- **Know when to restart** - Fresh conversations prevent context overflow
+- **Estimated time**: ~25 minutes
+
+---
+
 ## What You'll Learn
 
 Claude Code has a **limited context window** (like short-term memory). Learning to manage it efficiently is crucial for working with large codebases!
@@ -40,6 +51,15 @@ Typical Claude Code session can handle:
 - Performance slows down
 
 **Solution:** Use efficient context management techniques!
+
+---
+📍 **Section 1 of 3** • ⏱️ ~22 min remaining
+---
+
+### 🎯 Quick Win (30 seconds)
+
+Try this: "# context: I'm working on a Node.js REST API with Express and MongoDB"
+Watch how this helps Claude give more relevant answers!
 
 ---
 
@@ -125,6 +145,16 @@ I'll remember what you've completed!
 
 ---
 
+### 💡 Real-World Example
+
+**Scenario:** Developer jumping between 5 microservices throughout the day
+**Solution:** Use # annotations at start of each session: "# context: Working on payment-service, Node.js, Stripe integration"
+**Impact:** Claude immediately understands which service you're in, gives relevant suggestions without re-explaining architecture
+
+---
+**Navigation:** [← Previous](#understanding-context) | [Menu](#top) | [Next →](#context-efficient-file-reading)
+---
+
 ## Context-Efficient File Reading
 
 Instead of reading entire files, read **only what you need**.
@@ -194,6 +224,15 @@ Watch how I load only what's needed!
 *[WAIT FOR USER TO COMPLETE EXERCISE 9.2]*
 
 ---
+📍 **Section 2 of 3** • ⏱️ ~12 min remaining
+---
+
+### 🎯 Quick Win (45 seconds)
+
+Try this: "Use Grep to find all 'TODO' comments without reading any files"
+See how much context you save with targeted searches!
+
+---
 
 ## Avoiding Context Pollution
 
@@ -250,6 +289,12 @@ After completing work, summarize:
 # next session: Need to add bcrypt hashing
 ```
 
+### 💡 Real-World Example
+
+**Scenario:** Debugging a performance issue in a 50,000-line monolith application
+**Solution:** Use Grep to find slow functions, read only problem areas with line ranges, use agents for exploration
+**Impact:** Fixed issue using <5% of codebase context, never hit context limits, solved in 20 minutes
+
 ---
 
 ## Hands-On Exercise 9.3: Context Awareness
@@ -289,6 +334,8 @@ If I don't, use a # annotation to remind me:
 
 *[WAIT FOR USER TO COMPLETE EXERCISE 9.3]*
 
+---
+📍 **Section 3 of 3** • ⏱️ ~6 min remaining
 ---
 
 ## Agent Context Isolation
@@ -366,6 +413,16 @@ The agent approach is better for comprehensive exploration!
 
 *[WAIT FOR USER TO COMPLETE EXERCISE 9.4]*
 
+---
+
+### 💡 Real-World Example
+
+**Scenario:** Onboarding to massive legacy codebase (100K+ lines), need to understand architecture
+**Solution:** Launch Explore agent: "Map out the entire application architecture and data flow"
+**Impact:** Agent explores everything, returns clean summary, your main context stays pristine for actual work
+
+---
+**Navigation:** [← Previous](#context-efficient-file-reading) | [Menu](#top) | [Next →](#advanced-context-techniques)
 ---
 
 ## Advanced Context Techniques
@@ -448,6 +505,60 @@ You've mastered:
 
 You're now a **context management expert**! This skill will make you 10x more efficient with Claude Code, especially on large codebases.
 
-**Next up**: Module 5A - Skill Creation Mastery! Ready to build your own automation?
+---
+
+## 📋 Context Management Quick Reference
+
+### Memory Optimization Techniques
+```
+BEFORE (Context Heavy):
+"Read all 50 files in src/"
+→ 10,000+ lines loaded
+
+AFTER (Context Light):
+"Use Grep to find auth-related code"
+"Read lines 100-150 of src/auth.js"
+→ 50 lines loaded
+```
+
+### # Annotation Templates
+```
+# context: [Tech stack + current task]
+# working on: [Specific feature/bug]
+# completed: [What's done]
+# decision: [Key choices made]
+# next: [What's next]
+```
+
+### Tool Context Impact
+| Tool | Context Load | When to Use |
+|------|--------------|-------------|
+| Grep | Very Low | Find patterns first |
+| Glob | Very Low | List files |
+| Read (partial) | Low | Specific sections |
+| Read (full) | Medium | Small files only |
+| Agent | None | Large explorations |
+
+### Agent Usage
+✓ Use agents for: Large codebase exploration, pattern finding, architecture analysis
+✗ Don't use for: Single file reads, quick greps, small operations
+
+### Context Overflow Signs
+- Claude forgets earlier information
+- Responses become less accurate
+- Performance degrades
+**Solution**: Start fresh, rebuild context with # annotations
+
+### Pro Tips
+1. Start sessions with # context
+2. Grep before reading
+3. Use line ranges for large files
+4. Let agents handle exploration
+5. Summarize before ending sessions
+6. Don't fear fresh starts
+
+---
+
+**Next up**: Module 10 - Power User Mastery! Time to bring it all together.
 
 Type "continue" when ready! 🚀

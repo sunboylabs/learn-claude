@@ -1,5 +1,30 @@
 # Module 6: Web Integration 🌐
 
+## ⚡ Quick Summary
+
+Master web integration to supercharge Claude Code with live information:
+- **WebFetch** for documentation retrieval (any URL)
+- **WebSearch** for current information (US only)
+- **Playwright** for browser automation and testing
+- **Combine tools** for powerful research and testing workflows
+- **Estimated time:** 35 minutes
+
+---
+
+## 📚 Module Contents
+
+- [Why Web Integration Matters](#why-web-integration-matters)
+- [Part 1: WebFetch Basics](#part-1-webfetch-basics)
+- [Part 2: WebSearch & Current Information](#part-2-websearch--current-information)
+- [Part 3: Playwright Browser Automation](#part-3-playwright-browser-automation)
+- [Part 4: Real-World Scenarios](#part-4-real-world-scenarios)
+- [Part 5: Advanced Techniques](#part-5-advanced-techniques)
+- [Common Pitfalls](#common-pitfalls)
+- [Troubleshooting Guide](#troubleshooting-guide)
+- [Best Practices](#best-practices)
+
+---
+
 ## What You'll Learn
 
 Claude Code can access the web to fetch documentation, search for current information, and interact with browsers. This makes it incredibly powerful for real-world development tasks!
@@ -35,10 +60,18 @@ Claude: *fetches latest docs* "React 19 introduces Actions, useFormStatus..."
 ```
 
 ---
+# 📖 PART 1: WebFetch Basics
+*Fetching and analyzing documentation from any URL*
+
+---
 
 ## WebFetch: Documentation Access
 
 WebFetch retrieves web content and processes it with AI to extract relevant information.
+
+### 🎯 Quick Win (30 seconds)
+
+Try this now: "Fetch the React documentation homepage and summarize what topics it covers"
 
 ### How WebFetch Works Internally
 
@@ -224,9 +257,21 @@ Let's practice fetching documentation!
 
 ---
 
+📍 **Section 2 of 6** • ⏱️ ~28 minutes remaining
+
+---
+# 📖 PART 2: WebSearch & Current Information
+*Finding the latest versions, news, and best practices*
+
+---
+
 ## WebSearch: Current Information
 
 WebSearch queries search engines and returns up-to-date results from multiple sources.
+
+### 🎯 Quick Win (45 seconds)
+
+Try: "Search for the latest stable version of Node.js and its LTS status"
 
 ### How WebSearch Works
 
@@ -501,9 +546,21 @@ Bad pattern:
 
 ---
 
+📍 **Section 3 of 6** • ⏱️ ~20 minutes remaining
+
+---
+# 📖 PART 3: Playwright Browser Automation
+*Controlling browsers for testing and data extraction*
+
+---
+
 ## Chrome/Playwright Integration
 
 Claude Code can control Chrome via Playwright for browser automation and testing!
+
+### 🎯 Quick Win (1 minute)
+
+Try: "Navigate to https://example.com and take a screenshot"
 
 ### What is Playwright Integration?
 
@@ -581,6 +638,8 @@ npx playwright install chromium
 ```
 
 ### Comprehensive Playwright Tutorial
+
+**TL;DR:** This 7-step tutorial shows how to test a login form from navigation to verification. Each step builds on the previous one.
 
 **Scenario:** Test a login form on your local web application.
 
@@ -764,6 +823,18 @@ If you have a local web app running:
 *[WAIT FOR USER TO COMPLETE EXERCISE 6.3]*
 
 ---
+
+📍 **Section 4 of 6** • ⏱️ ~15 minutes remaining
+
+---
+# 📖 PART 4: Real-World Scenarios
+*Practical workflows combining web integration tools*
+
+---
+
+### 🎯 Quick Win (2 minutes)
+
+**TL;DR:** The real-world scenarios below show complete workflows. Try any one to see how WebFetch, WebSearch, and Playwright work together!
 
 ## Real-World Scenario 1: Implement Feature from Latest API Docs
 
@@ -1041,7 +1112,24 @@ Complete this full workflow for any library/feature you choose!
 
 ---
 
+📍 **Section 5 of 6** • ⏱️ ~8 minutes remaining
+
+---
+# 📖 PART 5: Troubleshooting & Best Practices
+*Avoiding common mistakes and mastering web integration*
+
+---
+
 ## Common Pitfalls
+
+**Quick Reference:**
+- [URL Redirects](#pitfall-1-url-redirects) - Handling cross-domain redirects
+- [JavaScript-Heavy Sites](#pitfall-2-javascript-heavy-sites) - When to use Playwright instead
+- [Authentication Required](#pitfall-3-authentication-required) - Accessing protected content
+- [Rate Limiting](#pitfall-4-rate-limiting) - Leveraging the 15-minute cache
+- [Dynamic Content](#pitfall-5-dynamic-content-and-infinite-scroll) - Dealing with lazy loading
+- [CORS Issues](#pitfall-6-cors-issues-playwright-only) - Understanding browser vs server-side
+- [Stale Documentation](#pitfall-7-stale-documentation) - Verifying content freshness
 
 ### Pitfall 1: URL Redirects
 
@@ -1218,6 +1306,14 @@ app.use(cors({
 ---
 
 ## Troubleshooting Guide
+
+**Quick Reference:**
+- [WebFetch Returns Minimal Content](#issue-webfetch-returns-minimal-content) - JavaScript-heavy sites
+- [WebSearch Not Working](#issue-websearch-not-working) - Regional availability and alternatives
+- [Playwright Element Not Found](#issue-playwright-element-not-found) - Finding elements correctly
+- [Playwright Timeout](#issue-playwright-timeout) - Handling slow page loads
+- [Playwright Browser Not Installed](#issue-playwright-browser-not-installed) - Installation steps
+- [WebFetch Returns Login Page](#issue-webfetch-returns-login-page) - Authentication needed
 
 ### Issue: WebFetch Returns Minimal Content
 
@@ -1410,6 +1506,20 @@ Content requires authentication.
 
 ## Best Practices
 
+**Quick Reference - DO's:**
+- [Be Specific with WebFetch](#do-be-specific-with-webfetch-requests) - Get better results with clear requests
+- [Use WebSearch for Current Info](#do-use-websearch-for-truly-current-information) - Don't rely on training data
+- [Take Snapshots Before Actions](#do-take-snapshots-before-playwright-actions) - See page structure first
+- [Leverage WebFetch Cache](#do-leverage-webfetch-cache) - Reference cached content
+- [Combine Tools](#do-combine-tools-for-complete-workflows) - Use each tool's strengths
+- [Handle Errors Gracefully](#do-handle-errors-gracefully) - Plan for failures
+
+**Quick Reference - DON'Ts:**
+- [Don't Assume All Sites Work](#dont-assume-all-sites-work-with-webfetch) - JS-heavy sites need Playwright
+- [Don't Skip Error Checking](#dont-skip-error-checking-with-playwright) - Verify elements exist
+- [Don't Forget WebSearch Limits](#dont-forget-websearch-limitations) - Have fallback strategies
+- [Don't Mix Up Use Cases](#dont-mix-up-webfetch-and-playwright-use-cases) - Choose the right tool
+
 ### DO: Be Specific with WebFetch Requests
 
 **Good:**
@@ -1559,7 +1669,19 @@ Content requires authentication.
 
 ---
 
+📍 **Section 6 of 6** • ⏱️ ~3 minutes remaining
+
+---
+# 📖 PART 6: Advanced Techniques
+*Power user workflows for maximum productivity*
+
+---
+
 ## Advanced Techniques
+
+### 🎯 Quick Win (30 seconds)
+
+**TL;DR:** These advanced techniques combine multiple tools in creative ways. Pick one that matches your use case!
 
 ### Technique 1: Chained WebFetch Pipeline
 
@@ -1682,6 +1804,257 @@ Take screenshots of the homepage, dashboard, and settings page at each size. Rep
 4. Test with high latency
 Report which features work in each scenario"
 ```
+
+---
+
+## 📋 Quick Reference Card
+
+**Essential Web Integration Commands**
+
+### WebFetch
+```
+"Fetch [URL] and [what you want to know]"
+"Fetch https://react.dev/reference/react/useEffect and explain cleanup"
+"Retrieve [docs URL] and help me implement [feature]"
+```
+
+**Key points:**
+- Gets ONE specific URL (server-side)
+- Best for official documentation
+- Converts HTML to markdown
+- Caches for 15 minutes
+- No JavaScript execution
+
+**Common patterns:**
+- API docs: "Fetch [API URL] and summarize [endpoint]"
+- Framework docs: "Fetch [docs page] and explain [concept]"
+- Migration guides: "Fetch [migration URL] and analyze my code"
+- Error docs: "Fetch [error page] and explain why I'm getting [error]"
+
+### WebSearch (US Only)
+```
+"Search for [current information]"
+"Search for latest version of [library]"
+"Find recent [topic/news]"
+"Look up [security/best practices]"
+```
+
+**Key points:**
+- Searches MULTIPLE sources
+- Gets current information
+- Only available in US
+- Cites sources
+
+**Alternatives (outside US):**
+- GitHub releases: "Fetch github.com/[org]/[repo]/releases"
+- npm registry: "Fetch registry.npmjs.org/[package]"
+- Changelog: "Fetch raw.githubusercontent.com/.../CHANGELOG.md"
+- Official blogs: "Fetch [project-site]/blog"
+
+**When to use WebSearch vs WebFetch:**
+| Need | Tool |
+|------|------|
+| Specific URL/docs | WebFetch |
+| Latest version | WebSearch → GitHub |
+| Multiple sources | WebSearch |
+| Official docs | WebFetch |
+| Current news | WebSearch |
+| API reference | WebFetch |
+| "Best of" comparison | WebSearch |
+| Complete tutorial | WebFetch |
+
+### Playwright Browser Automation
+```
+"Navigate to [URL]"
+"Open [URL] and take a screenshot"
+"Take a snapshot of the current page"
+"Fill [field] with [value]"
+"Click the [button/link]"
+"Extract [data] from the page"
+"Show browser console errors"
+"Wait for [element/text] to appear"
+```
+
+**Key points:**
+- Real browser with JavaScript
+- Best for dynamic content
+- Perfect for testing
+- Can interact with pages
+
+**Essential workflow:**
+1. Navigate: "Open [URL]"
+2. Snapshot: "Take a snapshot" (see structure)
+3. Interact: "Fill/Click/Extract"
+4. Verify: "Take screenshot"
+5. Debug: "Show console errors"
+
+**Common use cases:**
+- Testing forms: Navigate → Snapshot → Fill → Submit → Verify
+- Scraping data: Navigate → Wait for load → Extract → Save
+- Visual testing: Navigate → Resize → Screenshot at breakpoints
+- E2E flows: Login → Navigate → Action → Verify → Logout
+
+### Decision Tree
+
+**Start here:** What do I need?
+
+```
+Need official documentation?
+  ├─ Know exact URL?
+  │  └─ Use WebFetch ✓
+  └─ Need to find URL?
+     └─ Use WebSearch (or GitHub if non-US)
+
+Need current/latest information?
+  ├─ In US?
+  │  └─ Use WebSearch ✓
+  └─ Outside US?
+     └─ Use WebFetch with known URLs (GitHub/npm/blogs)
+
+Need to interact with webpage?
+  ├─ Static HTML?
+  │  └─ Try WebFetch first
+  └─ Dynamic/JavaScript content?
+     └─ Use Playwright ✓
+
+Need to test application?
+  └─ Use Playwright ✓
+
+Need data from multiple sources?
+  ├─ In US?
+  │  └─ Use WebSearch → then WebFetch specifics
+  └─ Outside US?
+     └─ Chain WebFetch requests
+```
+
+### Troubleshooting Quick Fixes
+
+**Problem:** WebFetch returns minimal content
+- **Cause:** JavaScript-heavy site
+- **Fix:** Use Playwright instead
+- **Command:** "Open [URL] in Playwright, wait for load, extract content"
+
+**Problem:** WebSearch not working
+- **Cause:** Not in US
+- **Fix:** Use alternatives
+- **Commands:**
+  - "Fetch github.com/[org]/[repo]/releases"
+  - "Fetch registry.npmjs.org/[package]"
+
+**Problem:** Playwright element not found
+- **Cause:** Wrong selector or timing
+- **Fix:** Take snapshot first
+- **Command:** "Take a snapshot, then click [element]"
+
+**Problem:** Playwright timeout
+- **Cause:** Slow page load
+- **Fix:** Explicit wait
+- **Command:** "Wait 10 seconds, then proceed"
+
+**Problem:** WebFetch returns login page
+- **Cause:** Authentication required
+- **Fix:** Use Playwright with login
+- **Command:** "Open [URL], log in as [user], then extract [data]"
+
+**Problem:** CORS errors in Playwright
+- **Cause:** Browser-side restrictions
+- **Fix:** Use WebFetch for APIs
+- **Command:** "Fetch [API URL]" (server-side, no CORS)
+
+### Real-World Workflows
+
+**Research → Implement → Test:**
+```
+1. "Search for best React date picker 2025"
+2. "Fetch [chosen library docs] and show installation"
+3. "Implement date picker in MyComponent.jsx"
+4. "Open localhost:3000 in Playwright and test the date picker"
+```
+
+**Security Audit:**
+```
+1. "Search for JWT security best practices 2025"
+2. "Fetch OWASP JWT cheat sheet"
+3. "Review my auth/jwt.js against OWASP recommendations"
+4. "Search for recent jwt library vulnerabilities"
+```
+
+**Competitive Analysis:**
+```
+1. "Open [competitor1.com/pricing] in Playwright"
+2. "Extract pricing tiers and features"
+3. "Navigate to [competitor2.com/pricing]"
+4. "Extract and compare pricing"
+5. "Create comparison table and save to data/analysis.json"
+```
+
+**Documentation-Driven Development:**
+```
+1. "Fetch [official API docs]"
+2. "Review my implementation against docs"
+3. "Identify deviations from best practices"
+4. "Update code to match documentation"
+5. "Test implementation with Playwright"
+```
+
+### Cache & Performance Tips
+
+**Leverage 15-minute cache:**
+```
+✓ Good: "Fetch docs" → "From those docs, explain X" → "Show example from docs"
+✗ Bad: "Fetch docs" → "Fetch docs again" → "Fetch docs once more"
+```
+
+**Efficient workflows:**
+- Fetch once, ask many questions
+- Reference cached content with "from the docs you fetched"
+- Chain related queries without re-fetching
+- Use cached docs for implementation
+
+**Performance:**
+- WebFetch: Server-side, fast, no JavaScript
+- WebSearch: Multiple sources, slower, comprehensive
+- Playwright: Full browser, slowest, most powerful
+
+### Common Pitfalls & Prevention
+
+**❌ Pitfall:** Using WebFetch on JavaScript-heavy sites
+**✓ Prevention:** Check if content loads dynamically → Use Playwright
+
+**❌ Pitfall:** Assuming WebSearch works everywhere
+**✓ Prevention:** Have fallback: GitHub releases, npm registry, official blogs
+
+**❌ Pitfall:** Not taking snapshot before Playwright actions
+**✓ Prevention:** Always "Take snapshot" first to see page structure
+
+**❌ Pitfall:** Ignoring Playwright element timing
+**✓ Prevention:** Add waits: "Wait for [element] to appear, then click"
+
+**❌ Pitfall:** Mixing up CORS restrictions
+**✓ Prevention:** Remember: WebFetch (no CORS) vs Playwright (has CORS)
+
+**❌ Pitfall:** Re-fetching same URL repeatedly
+**✓ Prevention:** Use cache, reference "from the docs you fetched"
+
+### Pro Tips
+
+🎯 **Combine tools in one request:**
+"Search for latest Next.js version, fetch the release notes, summarize new features, and update my next.config.js"
+
+🎯 **Specify output format:**
+"Extract pricing data and format as markdown table"
+
+🎯 **Use for learning:**
+"Fetch React hooks docs and quiz me on useEffect"
+
+🎯 **Automate repetitive tasks:**
+"Create a script that fetches competitor pricing weekly and saves to JSON"
+
+🎯 **Visual regression testing:**
+"Take screenshots at mobile (375px), tablet (768px), and desktop (1920px)"
+
+🎯 **Error debugging:**
+"Navigate to my app, perform [action], show console errors and failed requests"
 
 ---
 

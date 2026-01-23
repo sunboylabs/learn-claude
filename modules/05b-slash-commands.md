@@ -1,5 +1,13 @@
 # Module 5B: Slash Command Deep Dive ⚡
 
+## ⚡ Quick Summary
+
+- Slash commands are quick shortcuts for repetitive tasks (invoked with `/command-name`)
+- You'll create quality checks, file generators, and multi-step feature setup commands
+- Learn to handle arguments, build workflows, and compose commands
+- Master testing and debugging techniques
+- Estimated time: 35-45 minutes
+
 ## What You'll Learn
 
 Slash commands are **quick shortcuts** that invoke specific instructions instantly. They're perfect for repetitive tasks you do often!
@@ -33,6 +41,23 @@ A slash command is a markdown file in `.claude/commands/` that gets invoked with
 - You want a quick shortcut
 - The command benefits from arguments
 
+### 🎯 Quick Win (60 seconds)
+
+Try this: Create `.claude/commands/status.md` with this content:
+```markdown
+---
+description: Shows git status and recent commits
+---
+
+Run these commands:
+1. git status
+2. git log --oneline -5
+```
+
+Then type: `/status`
+
+---
+📍 **Section 1 of 5** • ⏱️ ~35 min remaining
 ---
 
 ## Command Anatomy
@@ -138,6 +163,26 @@ Watch how I execute all three checks!
 
 *[WAIT FOR USER TO COMPLETE EXERCISE 5B.1]*
 
+---
+
+### 💡 Real-World Example
+
+**Scenario:** Before every PR, you manually run linter, tests, and build - often forgetting one
+
+**Solution:** `/check-quality` command runs all three checks in sequence and gives a clear pass/fail report
+
+**Code:** The command you just created! One command replaces 3+ manual steps, saving time and reducing errors.
+
+---
+**Navigation:** [← Back to Top](#module-5b-slash-command-deep-dive-) | [Menu](#what-youll-learn) | [Next: Command Patterns →](#command-patterns)
+**Progress:** ██░░░░░░░░ 20% through this module
+---
+
+## 📖 Part 2: Command Patterns and Arguments
+*Building flexible and powerful commands*
+
+---
+📍 **Section 2 of 5** • ⏱️ ~28 min remaining
 ---
 
 ## Command Patterns
@@ -350,6 +395,24 @@ Test it with: `/new-file src/utils/math-helper.js`
 
 ---
 
+### 🎯 Quick Win (90 seconds)
+
+Try this: Enhance your `/new-file` command to support a `--template` flag that uses different boilerplates:
+- `/new-file utils/api.js --template=express` → Express route template
+- `/new-file utils/api.js --template=basic` → Basic module template
+
+---
+**Navigation:** [← Previous: Command Patterns](#command-patterns) | [Menu](#what-youll-learn) | [Next: Multi-Step Commands →](#multi-step-commands)
+**Progress:** ████░░░░░░ 40% through this module
+---
+
+## 📖 Part 3: Multi-Step Workflows
+*Orchestrating complex automation*
+
+---
+📍 **Section 3 of 5** • ⏱️ ~18 min remaining
+---
+
 ## Multi-Step Commands
 
 Complex commands can orchestrate entire workflows!
@@ -451,6 +514,26 @@ Test it: `/setup-feature task-filtering`
 
 *[WAIT FOR USER TO COMPLETE EXERCISE 5B.3]*
 
+---
+
+### 💡 Real-World Example
+
+**Scenario:** Starting a new feature requires creating a branch, files, boilerplate, and initial commit - easy to miss steps
+
+**Solution:** `/setup-feature user-auth` creates everything in one go: branch, implementation file, test file, docs, and commits the scaffold
+
+**Code:** Your setup-feature command! It automates the entire feature initialization workflow, ensuring consistency across all features.
+
+---
+**Navigation:** [← Previous: Multi-Step Commands](#multi-step-commands) | [Menu](#what-youll-learn) | [Next: Command Composition →](#command-composition)
+**Progress:** ██████░░░░ 60% through this module
+---
+
+## 📖 Part 4: Testing and Advanced Techniques
+*Debugging, composition, and best practices*
+
+---
+📍 **Section 4 of 5** • ⏱️ ~12 min remaining
 ---
 
 ## Command Composition
@@ -569,6 +652,16 @@ Test all your commands with various inputs!
 
 *[WAIT FOR USER TO COMPLETE EXERCISE 5B.4]*
 
+---
+**Navigation:** [← Previous: Command Composition](#command-composition) | [Menu](#what-youll-learn) | [Next: Advanced Techniques →](#advanced-command-techniques)
+**Progress:** ████████░░ 80% through this module
+---
+
+## 📖 Part 5: Real-World Examples and Organization
+*Production-ready commands and best practices*
+
+---
+📍 **Section 5 of 5** • ⏱️ ~5 min remaining
 ---
 
 ## Advanced Command Techniques
@@ -754,6 +847,161 @@ Use prefixes to organize related commands:
 - ❌ Use generic names: `do`, `run`, `go`
 - ❌ Use unclear abbreviations: `cr`, `dp`
 - ❌ Make names too long: `create-new-component-with-tests-and-styles`
+
+---
+
+### 💡 Real-World Example
+
+**Scenario:** Your application performance is slow but you don't know why
+
+**Solution:** `/analyze-perf` command automatically checks bundle size, large dependencies, slow tests, and generates an optimization report
+
+**Code:** The analyze-perf command example above, which audits your entire project and provides actionable optimization recommendations.
+
+---
+**Navigation:** [← Previous: Advanced Techniques](#advanced-command-techniques) | [Menu](#what-youll-learn) | [Back to Top ↑](#module-5b-slash-command-deep-dive-)
+**Progress:** ██████████ 100% complete!
+---
+
+## 📋 Quick Reference Card
+
+### Command File Structure
+```markdown
+---
+description: Brief description of what this command does
+---
+
+[Instructions for Claude in markdown]
+
+Do the following:
+1. First step
+2. Second step
+3. Third step
+```
+
+### Command Creation Steps
+1. **Create file** in `.claude/commands/` with `.md` extension
+2. **Add frontmatter** with description (optional but recommended)
+3. **Write instructions** as clear, ordered steps
+4. **Test invocation** with `/command-name`
+
+### Frontmatter Format
+```yaml
+---
+description: Runs linter, tests, and build to check code quality
+---
+```
+- Description appears when user types `/` to see commands
+- Keep it concise (one line, describes action and purpose)
+
+### Handling Parameters
+
+**Basic Argument:**
+```markdown
+1. Get the [parameter] from the user's command
+   - If provided: /command-name value
+   - [parameter] = "value"
+   - If not provided, ask: "What should [parameter] be?"
+```
+
+**Multiple Arguments:**
+```markdown
+1. Parse arguments:
+   - Format: /command method path
+   - Extract: method = "GET", path = "/api/users"
+   - If not provided, ask for each
+```
+
+**Named Flags:**
+```markdown
+1. Check for flags:
+   - /command --flag → Enable flag
+   - /command --option=value → Use value
+```
+
+### Common Command Patterns
+
+**Simple Task (Single Action):**
+```markdown
+Run [tool]:
+1. Execute [command]
+2. Report results
+```
+
+**Sequential Steps (Multi-Step):**
+```markdown
+Complete workflow:
+1. Pre-checks (validation)
+2. Main action (core work)
+3. Post-actions (cleanup/reporting)
+```
+
+**Conditional Logic:**
+```markdown
+1. Check condition
+   - If true: Action A
+   - Otherwise: Action B
+```
+
+**Information Gathering:**
+```markdown
+Collect and display:
+1. Read source 1
+2. Read source 2
+3. Format as summary
+```
+
+### File Organization
+```
+.claude/commands/
+├── check-quality.md      # Quality checks
+├── new-file.md          # File generator
+├── setup-feature.md     # Feature setup
+├── deploy-staging.md    # Deployment
+└── test-watch.md        # Testing
+```
+
+### Command Naming Best Practices
+- ✅ Use action verbs: `create-`, `run-`, `check-`, `deploy-`
+- ✅ Be specific: `deploy-production` not `deploy`
+- ✅ Use kebab-case: `check-quality`, not `checkQuality`
+- ✅ Keep short but clear: `new-file` not `create-new-file-with-boilerplate`
+- ✅ Group with prefixes: `test-*`, `git-*`, `deploy-*`
+- ❌ Avoid generic names: `do`, `run`, `go`
+- ❌ Avoid unclear abbreviations: `cr`, `dp`
+
+### Testing Commands
+```
+Test Matrix:
+┌─────────────────┬─────────────────┬──────────────────┐
+│ Test Case       │ Command         │ Expected Result  │
+├─────────────────┼─────────────────┼──────────────────┤
+│ Happy path      │ /cmd arg        │ Success          │
+│ No args         │ /cmd            │ Asks or defaults │
+│ Invalid args    │ /cmd badarg     │ Clear error      │
+│ Missing deps    │ /cmd            │ Detects/reports  │
+└─────────────────┴─────────────────┴──────────────────┘
+```
+
+### Command Composition
+```markdown
+Workflow command:
+1. Run quality checks:
+   - /check-quality (invoke another command)
+2. If checks pass:
+   - Continue with next step
+3. Deploy:
+   - /deploy (invoke another command)
+```
+
+### Environment Detection Pattern
+```markdown
+Detect project type:
+1. Check for package.json → Node.js (npm/yarn)
+2. Check for requirements.txt → Python (pip)
+3. Check for pom.xml → Java (mvn)
+4. Adapt commands accordingly
+```
 
 ---
 
