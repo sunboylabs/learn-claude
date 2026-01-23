@@ -1,5 +1,16 @@
 # Module 8: Advanced Git & Best Practices
 
+## ⚡ Quick Summary
+
+- **Master complex Git operations**: rebase, cherry-pick, merge conflict resolution
+- **Professional workflows**: branch strategies, PR creation, commit best practices
+- **Claude's Git safety protocol**: Never destructive without permission
+- **Real-world scenarios**: Emergency hotfixes, refactoring, debugging production issues
+- **Power user techniques**: Parallel operations, context management, smart tool selection
+- **Estimated time**: ~40 minutes
+
+---
+
 ## What You'll Learn
 - **Advanced Git operations** - Branches, merges, conflicts, rebase, cherry-pick
 - **Best practices** - Pro patterns and techniques
@@ -21,6 +32,17 @@ Claude Code integrates deeply with Git to make version control intuitive and pow
 - NEVER force pushes to main/master branches
 - Always checks authorship before amending commits
 - Only commits when explicitly asked
+
+---
+📍 **Section 1 of 5** • ⏱️ ~36 min remaining
+---
+
+### 🎯 Quick Win (60 seconds)
+
+Try this: "Show me the current branch and recent commits"
+Get instant visibility into your Git status!
+
+---
 
 ### Branch Management
 
@@ -97,6 +119,14 @@ JWT for subsequent requests. Combine these conflict sections."
 ```
 
 📚 **Learn more:** [Git Merge Conflicts](https://git-scm.com/docs/git-merge#_how_conflicts_are_presented)
+
+### 💡 Real-World Example
+
+**Scenario:** Two developers modified the same authentication file - one added OAuth, the other added 2FA
+**Solution:** Ask Claude to merge both features, keeping OAuth flow as primary with 2FA as optional enhancement
+**Impact:** Both features integrated seamlessly, no code lost, functionality preserved
+
+---
 
 ### Git Rebase
 
@@ -183,6 +213,17 @@ Or:
 Claude will use `git log` and `git diff` to provide detailed analysis.
 
 📚 **Learn more:** [Git Log](https://git-scm.com/docs/git-log) | [Git Diff](https://git-scm.com/docs/git-diff)
+
+---
+📍 **Section 2 of 5** • ⏱️ ~28 min remaining
+---
+
+### 🎯 Quick Win (90 seconds)
+
+Try this: "Help me create a hotfix branch from main, fix a typo in README.md, and create a commit"
+Practice the complete hotfix workflow!
+
+---
 
 ## Git Best Practices with Claude
 
@@ -289,6 +330,16 @@ Claude will recommend merge or rebase based on your situation.
 
 Keeps your branch list manageable.
 
+### 💡 Real-World Example
+
+**Scenario:** Feature branch 50 commits behind main, causing integration nightmares
+**Solution:** Claude rebases feature branch onto latest main, resolves conflicts incrementally
+**Impact:** Clean integration, all tests pass, PR merged in 1 hour instead of 2 days of manual conflict fixing
+
+---
+**Navigation:** [← Previous](#advanced-git-operations) | [Menu](#top) | [Next →](#power-user-best-practices)
+---
+
 ## Power User Best Practices
 
 ### 1. Be Specific and Direct
@@ -351,6 +402,10 @@ Don't micromanage - let Claude work through the plan.
 First attempt not perfect? Refine:
 "Good start, but can you also add input validation and error logging?"
 
+---
+📍 **Section 3 of 5** • ⏱️ ~18 min remaining
+---
+
 ## Performance Optimization
 
 ### Speed Up Complex Tasks
@@ -385,6 +440,14 @@ First attempt not perfect? Refine:
 9. **Force pushing without understanding** - Can lose work permanently
 10. **Ignoring merge conflicts** - Must resolve properly
 
+### 💡 Real-World Example
+
+**Scenario:** Junior developer accidentally committed .env file with production database credentials
+**Solution:** Ask Claude to remove file from history, update .gitignore, rotate credentials
+**Impact:** Security breach prevented, proper practices established, team educated
+
+---
+
 ### ✓ Do This Instead:
 1. **Be specific** - "Fix the TypeError in line 45 of auth.js"
 2. **Direct file access** - "Read src/config.json"
@@ -396,6 +459,17 @@ First attempt not perfect? Refine:
 8. **Check .gitignore** - "Make sure .env files aren't being committed"
 9. **Understand before forcing** - Ask Claude to explain
 10. **Resolve thoughtfully** - "Help me understand both sides of this conflict"
+
+---
+📍 **Section 4 of 5** • ⏱️ ~12 min remaining
+---
+
+### 🎯 Quick Win (60 seconds)
+
+Try this: "Show me uncommitted changes and help me decide what to commit first"
+Master the art of selective staging!
+
+---
 
 ## Real-World Scenarios
 
@@ -472,6 +546,16 @@ Follow our existing auth patterns."
 - Verify the solution
 - Create PR with clear urgency markers
 
+### 💡 Real-World Example
+
+**Scenario:** Startup preparing for investor demo, multiple features half-done across 8 branches
+**Solution:** Claude analyzes all branches, cherry-picks working features, creates demo branch
+**Impact:** Polished demo ready in 3 hours, secured funding, avoided "demo hell"
+
+---
+**Navigation:** [← Previous](#power-user-best-practices) | [Menu](#top) | [Next →](#troubleshooting-guide)
+---
+
 ## Troubleshooting Guide
 
 ### Claude seems confused?
@@ -542,6 +626,10 @@ Try: "When I submit the login form in src/components/Login.jsx, the API call to 
 ```
 
 📚 **Common Git problems:** [Git Troubleshooting Guide](https://git-scm.com/docs/git-help)
+
+---
+📍 **Section 5 of 5** • ⏱️ ~5 min remaining
+---
 
 ### Performance is slow?
 
@@ -777,5 +865,53 @@ You've mastered:
 ✓ Professional Git workflows
 
 **You're now a Claude Code power user!**
+
+---
+
+## 📋 Git Quick Reference Card
+
+### Branch Management
+```bash
+# Create and switch
+git checkout -b feature/name
+
+# Merge branch
+git merge feature/name
+
+# Delete merged branch
+git branch -d feature/name
+```
+
+### Conflict Resolution
+```
+1. Identify conflicts: git status
+2. Read conflicted files
+3. Resolve markers: <<<< ==== >>>>
+4. Stage resolved: git add file
+5. Complete: git commit
+```
+
+### Rebase vs Merge
+| Operation | When to Use | Result |
+|-----------|-------------|--------|
+| Merge | Shared branches | Preserves history |
+| Rebase | Local cleanup | Linear history |
+
+### Claude Git Commands
+- "Create branch feature/X and switch to it"
+- "Help resolve merge conflicts in file.js"
+- "Rebase my feature onto main"
+- "Cherry-pick commit abc123"
+- "Create PR with detailed description"
+- "Show uncommitted changes"
+
+### Safety Checklist
+- [ ] Reviewed changes with git diff?
+- [ ] Commit message descriptive?
+- [ ] No sensitive data being committed?
+- [ ] Branch name follows convention?
+- [ ] Tests pass before committing?
+
+---
 
 **Next**: Module 9 - Context & Memory Management! Type "continue" when ready.

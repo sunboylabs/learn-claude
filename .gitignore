@@ -1,5 +1,6 @@
 # User-specific progress data
 .learn-progress.json
+.learn-config.json
 
 # macOS
 .DS_Store

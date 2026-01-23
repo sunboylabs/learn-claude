@@ -1,5 +1,52 @@
 # Module 7A: Pull Requests & CI/CD 🚀
 
+## ⚡ Quick Summary
+
+This is a comprehensive module covering professional Git workflows and automation. Here's what you'll master:
+
+- Create professional pull requests with gh CLI
+- Set up GitHub Actions and GitLab CI/CD pipelines
+- Integrate Claude into your IDE (VS Code, JetBrains)
+- Automate code review, testing, and deployment
+- Handle CI failures and merge conflicts
+- **Estimated time: 40-45 minutes**
+
+**Module sections:** 5 major parts • 5 hands-on exercises • 6 real-world scenarios
+
+---
+
+## 📚 Module Contents
+
+**Part 1: Pull Request Fundamentals** (Lines 1-360)
+- [Understanding Pull Requests](#understanding-pull-requests)
+- [How Claude Creates Pull Requests](#how-claude-creates-pull-requests)
+- [Exercise 7A.1: Create Your First PR](#hands-on-exercise-7a1-create-your-first-pr)
+- [PR Best Practices](#pr-best-practices)
+- [Exercise 7A.2: Multi-Commit PR](#hands-on-exercise-7a2-multi-commit-pr)
+
+**Part 2: GitHub Actions** (Lines 361-643)
+- [CI/CD Integration](#cicd-integration)
+- [GitHub Actions Setup](#github-actions-integration)
+- [Exercise 7A.3: Setup CI/CD](#hands-on-exercise-7a3-setup-cicd)
+
+**Part 3: GitLab CI/CD** (Lines 644-895)
+- [GitLab CI Configuration](#gitlab-ci-integration)
+- [Complete Pipeline Example](#complete-gitlab-pipeline)
+
+**Part 4: IDE Integration** (Lines 896-1136)
+- [VS Code Deep Dive](#vs-code-integration)
+- [JetBrains Integration](#jetbrains-integration)
+- [Exercise 7A.4: IDE Workflow](#hands-on-exercise-7a4-ide-workflow)
+
+**Part 5: Real-World Workflows** (Lines 1137-1780)
+- [Real-World Scenarios](#real-world-scenarios)
+- [Common Pitfalls](#common-pitfalls)
+- [Troubleshooting Guide](#troubleshooting-guide)
+- [Exercise 7A.5: Handle CI Failure](#hands-on-exercise-7a5-handle-ci-failure)
+- [Best Practices Summary](#best-practices-summary)
+
+---
+
 ## What You'll Learn
 
 Master professional Git workflows and automation! Instead of just learning commands, you'll **create real PRs** and **build CI/CD pipelines**.
@@ -11,6 +58,22 @@ You'll master:
 - **IDE integration** - Deep dive into VS Code and JetBrains
 - **Team collaboration** - Best practices for working with others
 - **Automation strategies** - Code review, testing, deployment
+
+---
+📍 **Section 1 of 9** • ⏱️ ~40 min total
+
+---
+
+# 📖 PART 1: Pull Request Fundamentals
+*Learn to create professional PRs with Claude Code*
+
+---
+
+### 🎯 Quick Win (30 seconds)
+
+Before diving in, try this: "Show me the status of my git repository"
+
+Watch Claude check your current branch, changes, and commits!
 
 ---
 
@@ -42,6 +105,41 @@ A **pull request (PR)** is a request to merge changes from one branch into anoth
 6. CI/CD runs tests
 7. Make requested changes
 8. Merge when approved
+```
+
+### Complete PR & CI/CD Workflow Diagram
+
+```
+Developer Workflow                    CI/CD Automation
+─────────────────                    ─────────────────
+
+1. git checkout -b feature/new
+   └─> Code changes
+       └─> git commit -m "..."
+           └─> git push
+
+2. "Create pull request"
+   └─> Claude analyzes ALL commits ─┐
+       └─> Reviews full diff        │
+           └─> Creates PR desc      │
+                                    │
+3. PR Created on GitHub <───────────┘
+   └─> Triggers GitHub Actions
+       ├─> Lint Check
+       ├─> Unit Tests
+       ├─> Integration Tests
+       └─> Claude Code Review
+           └─> Posts comments
+
+4. Review Feedback
+   ├─> Human reviewers comment
+   └─> Claude highlights issues
+       └─> Make fixes
+           └─> git push (CI re-runs)
+
+5. Approval + CI Passing
+   └─> Merge to main
+       └─> Deploy to production
 ```
 
 ### The Pull Request Lifecycle
@@ -249,6 +347,9 @@ After I create the PR:
 *[WAIT FOR USER TO COMPLETE EXERCISE 7A.1]*
 
 ---
+📍 **Section 2 of 9** • ⏱️ ~35 min remaining
+
+---
 
 ## PR Best Practices
 
@@ -355,6 +456,22 @@ Try it: "Create a pull request for my enhanced logging feature"
 ---
 
 *[WAIT FOR USER TO COMPLETE EXERCISE 7A.2]*
+
+---
+📍 **Section 3 of 9** • ⏱️ ~30 min remaining
+
+---
+
+# 📖 PART 2: GitHub Actions & CI/CD
+*Automate testing and deployment with Claude Code*
+
+---
+
+### 🎯 Quick Win (1 minute)
+
+Try this: "Check if GitHub CLI is installed and show me my authentication status"
+
+Claude will verify your gh CLI setup before you dive into workflows!
 
 ---
 
@@ -640,6 +757,39 @@ jobs:
       - run: npm test
 ```
 
+### 💡 Real-World Example: Automated PR Reviews
+
+**Scenario:** Your team gets 20+ PRs per day. Manual review becomes a bottleneck.
+
+**Solution with Claude Code:**
+1. Set up GitHub Actions workflow with Claude review
+2. Every PR automatically gets reviewed for:
+   - Security vulnerabilities
+   - Performance issues
+   - Best practice violations
+   - Code quality concerns
+3. Claude posts detailed review comments
+4. Human reviewers focus on business logic
+5. PR cycle time drops from 2 days to 4 hours
+
+**Result:** Team velocity increases 3x while maintaining code quality!
+
+---
+📍 **Section 4 of 9** • ⏱️ ~22 min remaining
+
+---
+
+# 📖 PART 3: GitLab CI/CD
+*Continuous Integration with GitLab*
+
+---
+
+### 🎯 Quick Win (30 seconds)
+
+Try this: "Show me the structure of my project's CI/CD configuration files"
+
+Claude will find and display any existing CI/CD files (GitHub Actions, GitLab CI, etc.)!
+
 ---
 
 ## GitLab CI Integration
@@ -894,6 +1044,22 @@ Ask me: "Help me create a GitHub Actions workflow with Claude Code review"
 *[WAIT FOR USER TO COMPLETE EXERCISE 7A.3]*
 
 ---
+📍 **Section 5 of 9** • ⏱️ ~18 min remaining
+
+---
+
+# 📖 PART 4: IDE Integration
+*Deep VS Code and JetBrains integration*
+
+---
+
+### 🎯 Quick Win (1 minute)
+
+Try this: "Help me check if I have VS Code or any JetBrains IDEs installed"
+
+Claude will scan for installed IDEs and suggest the best integration path!
+
+---
 
 ## IDE Integration Deep Dive
 
@@ -1133,6 +1299,22 @@ Ask me: "Help me set up Claude Code in VS Code" or "Help me configure Claude in 
 *[WAIT FOR USER TO COMPLETE EXERCISE 7A.4]*
 
 ---
+📍 **Section 6 of 9** • ⏱️ ~12 min remaining
+
+---
+
+# 📖 PART 5: Advanced Workflows & Troubleshooting
+*Handle real-world challenges with confidence*
+
+---
+
+### 🎯 Quick Win (30 seconds)
+
+Try this: "Show me the most recent commits and check for any potential issues"
+
+Claude will review recent work and flag any concerns before you create a PR!
+
+---
 
 ## Real-World Scenarios
 
@@ -1271,6 +1453,33 @@ Your PR has merge conflicts with main.
    - Conflicts resolved
    - CI runs again
    - Ready for review
+
+### 💡 Real-World Example: CI Pipeline Failure Debug
+
+**Scenario:** Your CI pipeline fails with a cryptic error after 10 minutes of running.
+
+**Problem:** "Error: Cannot find module 'lodash/merge'"
+
+**Claude's Debug Process:**
+1. Analyzes error message
+2. Checks package.json for dependencies
+3. Reviews CI workflow file
+4. Identifies issue: dependency not in dependencies, only in devDependencies
+5. Suggests fix: Move lodash to dependencies or install with --production=false
+
+**Solution:**
+```json
+{
+  "dependencies": {
+    "lodash": "^4.17.21"  // Moved from devDependencies
+  }
+}
+```
+
+**Result:** CI passes, PR merges, team saves hours of debugging time!
+
+---
+📍 **Section 7 of 9** • ⏱️ ~8 min remaining
 
 ---
 
@@ -1457,8 +1666,34 @@ CI passes but production breaks.
 - Monitor deployments
 
 ---
+📍 **Section 8 of 9** • ⏱️ ~5 min remaining
+
+---
 
 ## Troubleshooting Guide
+
+### CI/CD Troubleshooting Workflow
+
+When things go wrong, follow this systematic approach:
+
+```
+1. Check CI Logs
+   └─> Identify exact error message
+       └─> Ask Claude: "Help me understand this CI error: [error]"
+           └─> Review suggested fixes
+               └─> Apply fix and test
+                   └─> Commit and push
+                       └─> Monitor CI run
+
+2. If CI Still Fails
+   └─> Check environment variables
+       └─> Verify dependencies
+           └─> Test locally
+               └─> Review workflow file
+                   └─> Ask Claude for advanced debugging
+```
+
+### Common Issues & Solutions
 
 ### Issue 1: "gh: command not found"
 
@@ -1684,6 +1919,34 @@ Practice debugging CI issues!
 *[WAIT FOR USER TO COMPLETE EXERCISE 7A.5]*
 
 ---
+📍 **Section 9 of 9** • ⏱️ ~2 min remaining
+
+---
+
+### 💡 Real-World Example: Branch Protection Saves the Day
+
+**Scenario:** Junior developer accidentally force-pushes to main, overwriting 3 days of team work.
+
+**Problem:** Without branch protection, commits are lost.
+
+**Solution with Branch Protection:**
+1. Repository Settings > Branches > Add Rule
+2. Enable:
+   - Require pull request reviews (2 reviewers)
+   - Require status checks (CI must pass)
+   - Do not allow force pushes
+   - Do not allow deletions
+3. Enable "Require conversation resolution before merging"
+
+**Result:**
+- Force push attempt is blocked
+- Developer gets clear error message
+- Work is safe, developer creates proper PR
+- Team avoids 3-day rollback nightmare!
+
+**Prevention is better than recovery!**
+
+---
 
 ## Best Practices Summary
 
@@ -1746,6 +2009,609 @@ Practice debugging CI issues!
 - ❌ Disable code review
 - ❌ Skip testing generated code
 - ❌ Install untrusted extensions
+
+---
+
+## 📋 Quick Reference Card
+
+**Essential PR & CI/CD Commands**
+
+### Pull Request Creation
+
+**Basic PR workflow:**
+```
+"Create a pull request"
+"Create a pull request for my [feature] changes"
+"Make a PR titled '[Title]' with description '[Summary]'"
+```
+
+**What Claude does automatically:**
+1. Runs `git status` - Check current state
+2. Runs `git log main..HEAD` - Review ALL commits
+3. Runs `git diff main...HEAD` - Analyze full diff
+4. Drafts comprehensive PR description
+5. Pushes branch (if needed)
+6. Creates PR with `gh pr create`
+
+**Key point:** Claude analyzes ALL commits on your branch, not just the latest one!
+
+### GitHub CLI (gh) Commands
+
+**Check installation:**
+```bash
+gh --version
+gh auth status
+gh auth login
+```
+
+**PR management:**
+```bash
+gh pr create --title "Title" --body "Description"
+gh pr list
+gh pr view [number]
+gh pr status
+gh pr checks
+gh pr merge [number]
+gh pr review [number] --approve
+gh pr comment [number] --body "Comment"
+```
+
+**Repository info:**
+```bash
+gh repo view
+gh issue list
+gh run list
+gh run view [run-id]
+```
+
+### Git Workflow Commands
+
+**Branch management:**
+```bash
+# Create feature branch
+git checkout -b feature/my-feature
+
+# Check status
+git status
+git log main..HEAD --oneline
+
+# Review changes
+git diff main...HEAD
+git diff main...HEAD --stat
+
+# Update from main
+git checkout main
+git pull
+git checkout feature/my-feature
+git merge main
+
+# Push to remote
+git push -u origin feature/my-feature
+```
+
+**Multi-commit workflow:**
+```bash
+# View all commits on branch
+git log main..HEAD
+
+# See detailed commit history
+git log --oneline --graph --all
+
+# Review specific commit
+git show <commit-hash>
+
+# Amend last commit
+git commit --amend -m "Updated message"
+
+# Rebase to clean up history (use carefully!)
+git rebase -i main
+```
+
+### CI/CD Pipeline Setup
+
+**GitHub Actions basics:**
+
+Create `.github/workflows/ci.yml`:
+```yaml
+name: CI Pipeline
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      - run: npm ci
+      - run: npm test
+```
+
+**GitLab CI basics:**
+
+Create `.gitlab-ci.yml`:
+```yaml
+stages:
+  - test
+  - build
+  - deploy
+
+test:
+  stage: test
+  script:
+    - npm ci
+    - npm test
+```
+
+### Environment Variables & Secrets
+
+**GitHub secrets:**
+```yaml
+# In workflow file
+env:
+  ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+  DATABASE_URL: ${{ secrets.DATABASE_URL }}
+```
+
+**Set in GitHub:**
+1. Repository Settings
+2. Secrets and variables → Actions
+3. New repository secret
+4. Add name and value
+
+**GitLab variables:**
+```yaml
+# In .gitlab-ci.yml
+variables:
+  ANTHROPIC_API_KEY: $ANTHROPIC_API_KEY
+```
+
+**Set in GitLab:**
+1. Settings → CI/CD
+2. Variables → Expand
+3. Add Variable
+4. Protect if needed
+
+### Common CI Patterns
+
+**Caching dependencies:**
+```yaml
+# GitHub Actions
+- uses: actions/cache@v3
+  with:
+    path: node_modules
+    key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+
+# GitLab CI
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - node_modules/
+```
+
+**Matrix builds (test multiple versions):**
+```yaml
+# GitHub Actions
+strategy:
+  matrix:
+    node: [16, 18, 20]
+    os: [ubuntu-latest, macos-latest]
+steps:
+  - uses: actions/setup-node@v4
+    with:
+      node-version: ${{ matrix.node }}
+```
+
+**Conditional jobs:**
+```yaml
+# GitHub Actions
+if: github.ref == 'refs/heads/main'
+if: github.event_name == 'pull_request'
+
+# GitLab CI
+only:
+  - main
+  - merge_requests
+```
+
+### Troubleshooting Quick Fixes
+
+**Problem:** "gh: command not found"
+```bash
+# macOS
+brew install gh
+gh auth login
+
+# Ubuntu/Debian
+curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
+echo "deb [signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list
+sudo apt update && sudo apt install gh
+gh auth login
+
+# Windows
+winget install --id GitHub.cli
+gh auth login
+```
+
+**Problem:** PR has merge conflicts
+```bash
+git checkout main
+git pull
+git checkout your-branch
+git merge main
+# Resolve conflicts in files
+git add .
+git commit -m "Resolve merge conflicts"
+git push
+```
+
+**Problem:** CI failing with "Cannot find module"
+- **Check:** Is dependency in package.json?
+- **Fix:** Add to dependencies (not devDependencies)
+- **Or:** Install with `npm ci --include=dev`
+
+**Problem:** CI timeout
+- **Add caching:** Cache node_modules
+- **Parallelize:** Use matrix builds
+- **Increase timeout:** `timeout-minutes: 30`
+
+**Problem:** Secrets not working in CI
+- **Check:** Secret name matches exactly
+- **Check:** Using correct syntax `${{ secrets.NAME }}`
+- **Verify:** Secret is set in repository settings
+- **Test:** Echo check (don't echo secret value!)
+
+**Problem:** Empty PR description
+- **Check:** `git log main..HEAD` shows commits
+- **Check:** `git diff main...HEAD` shows changes
+- **Fix:** Make commits, push, try again
+
+### Real-World Workflows
+
+**Complete feature workflow:**
+```bash
+# 1. Create branch
+git checkout -b feature/user-auth
+
+# 2. Make changes and commits
+git add .
+git commit -m "Add login endpoint"
+git commit -m "Add password hashing"
+git commit -m "Add tests"
+
+# 3. Ask Claude to create PR
+"Create a pull request for my user authentication feature"
+
+# 4. Claude does this automatically:
+# - git status
+# - git log main..HEAD (reviews ALL 3 commits)
+# - git diff main...HEAD
+# - Creates comprehensive description
+# - git push -u origin feature/user-auth
+# - gh pr create --title "..." --body "..."
+
+# 5. CI runs automatically
+# 6. Address review feedback
+git add .
+git commit -m "Address review comments"
+git push
+
+# 7. CI re-runs
+# 8. Merge when approved
+gh pr merge [number]
+```
+
+**Handle CI failure workflow:**
+```bash
+# 1. Check CI logs
+gh pr checks
+
+# 2. Ask Claude for help
+"The CI is failing with error: [paste error]. Help me fix it."
+
+# 3. Apply fix
+git add .
+git commit -m "Fix CI error: [description]"
+git push
+
+# 4. CI automatically re-runs
+# 5. Verify it passes
+gh pr checks
+```
+
+**Update branch from main:**
+```bash
+# 1. Fetch latest main
+git checkout main
+git pull origin main
+
+# 2. Merge into your branch
+git checkout feature/my-feature
+git merge main
+
+# 3. Resolve any conflicts
+# (Ask Claude: "Help me resolve merge conflicts in [file]")
+
+# 4. Push updated branch
+git push
+```
+
+### PR Best Practices Checklist
+
+**Before creating PR:**
+- [ ] Branch has descriptive name (`feature/`, `fix/`, `refactor/`)
+- [ ] All commits have meaningful messages
+- [ ] Changes are focused (not mixing features)
+- [ ] Tests are included
+- [ ] Code is formatted/linted
+- [ ] No debug code or console.logs
+- [ ] No hardcoded secrets
+
+**PR description should include:**
+- [ ] Clear title describing the change
+- [ ] Summary of what changed (bullet points)
+- [ ] Why the change was needed
+- [ ] Test plan (how to verify)
+- [ ] Screenshots (if UI changes)
+- [ ] Related issues/tickets
+
+**During review:**
+- [ ] Address all review comments
+- [ ] Ask questions if unclear
+- [ ] Make requested changes
+- [ ] Mark conversations as resolved
+- [ ] Keep PR updated with main
+- [ ] Ensure CI passes
+
+**Before merging:**
+- [ ] All reviews approved
+- [ ] CI/CD passing (green checkmarks)
+- [ ] No merge conflicts
+- [ ] Branch is up to date with main
+- [ ] Final testing complete
+
+### Branch Protection Settings
+
+**Recommended protection rules:**
+
+GitHub: Settings → Branches → Add rule
+
+```
+Branch name pattern: main
+
+✅ Require pull request reviews before merging
+   - Required approvals: 2
+   - Dismiss stale approvals
+
+✅ Require status checks to pass before merging
+   - Require branches to be up to date
+   - Status checks: CI, Tests, Linting
+
+✅ Require conversation resolution before merging
+
+✅ Do not allow force pushes
+
+✅ Do not allow deletions
+```
+
+**Why this matters:**
+- Prevents accidental direct commits to main
+- Ensures code is reviewed
+- Guarantees tests pass
+- Protects against force push disasters
+- Maintains clean history
+
+### IDE Integration Quick Start
+
+**VS Code:**
+1. Install "Claude Code" extension
+2. Set API key: Settings → Claude → API Key
+3. Use shortcuts:
+   - `Cmd+Shift+C`: Open chat
+   - `Cmd+Shift+R`: Refactor
+   - `Cmd+Shift+T`: Generate tests
+   - `Cmd+Shift+D`: Explain code
+
+**JetBrains (IntelliJ, PyCharm, WebStorm):**
+1. Settings → Plugins → Search "Claude Code"
+2. Install and restart
+3. Settings → Tools → Claude Code → API Key
+4. Use shortcuts:
+   - `Cmd+J`: Show suggestions
+   - `Cmd+Alt+C`: Open chat
+   - `Cmd+Alt+T`: Generate tests
+
+### CI Performance Optimization
+
+**Speed up CI by 3-5x:**
+
+1. **Cache dependencies:**
+   ```yaml
+   - uses: actions/cache@v3
+     with:
+       path: |
+         ~/.npm
+         node_modules
+       key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
+   ```
+
+2. **Parallelize jobs:**
+   ```yaml
+   strategy:
+     matrix:
+       task: [lint, test, build]
+   ```
+
+3. **Skip unnecessary jobs:**
+   ```yaml
+   on:
+     push:
+       paths-ignore:
+         - '**.md'
+         - 'docs/**'
+   ```
+
+4. **Use faster runners:**
+   ```yaml
+   runs-on: ubuntu-latest-4-cores
+   ```
+
+5. **Optimize test execution:**
+   ```yaml
+   - run: npm test -- --maxWorkers=2
+   ```
+
+### Common Error Messages & Solutions
+
+**"refusing to merge unrelated histories"**
+```bash
+# Solution: Allow unrelated histories
+git pull origin main --allow-unrelated-histories
+```
+
+**"Your branch is behind 'origin/main'"**
+```bash
+# Solution: Pull latest changes
+git pull origin main
+```
+
+**"CONFLICT (content): Merge conflict in [file]"**
+```bash
+# Solution: Resolve manually or ask Claude
+"Help me resolve merge conflicts in [file]"
+```
+
+**"API rate limit exceeded"**
+```bash
+# Solution: Authenticate gh CLI
+gh auth login
+```
+
+**"error: failed to push some refs"**
+```bash
+# Solution: Pull first, then push
+git pull origin your-branch
+git push origin your-branch
+```
+
+### Multi-Commit PR Strategy
+
+**Why Claude reviews ALL commits:**
+- Understands progression of work
+- Captures complete feature story
+- Identifies related changes
+- Creates better PR descriptions
+- Suggests comprehensive test plans
+
+**Example:** 5-commit feature branch
+```
+Commit 1: feat: Add database schema
+Commit 2: feat: Implement API endpoints
+Commit 3: test: Add API tests
+Commit 4: docs: Update API documentation
+Commit 5: fix: Handle edge case in validation
+```
+
+**Claude's PR summary covers:**
+- Complete feature (database + API + tests + docs)
+- Notes the bug fix
+- Suggests testing all components
+- Explains the full implementation
+
+**vs. manual PR (often only describes last commit):**
+"Fix edge case in validation" ← Misses 90% of the work!
+
+### Advanced Git Commands
+
+**Interactive rebase (clean up commits):**
+```bash
+git rebase -i main
+# Use 'squash' to combine commits
+# Use 'reword' to change messages
+# Use 'drop' to remove commits
+```
+
+**Cherry-pick (apply specific commit):**
+```bash
+git cherry-pick <commit-hash>
+```
+
+**Stash (save work temporarily):**
+```bash
+git stash save "WIP: feature work"
+git stash list
+git stash pop
+```
+
+**Reset (undo commits):**
+```bash
+git reset --soft HEAD~1  # Keep changes, undo commit
+git reset --hard HEAD~1  # Discard changes and commit
+```
+
+**Reflog (recover lost commits):**
+```bash
+git reflog
+git reset --hard HEAD@{n}
+```
+
+### Pro Tips
+
+🎯 **Let Claude handle PR complexity:**
+Don't summarize yourself - just say "Create a pull request" and Claude analyzes all commits and diffs automatically.
+
+🎯 **Keep branches short-lived:**
+Merge within 1-3 days to avoid conflicts and reduce review burden.
+
+🎯 **Use draft PRs for WIP:**
+```bash
+gh pr create --draft
+```
+Mark ready when done:
+```bash
+gh pr ready [number]
+```
+
+🎯 **Automate everything:**
+- Linting → Pre-commit hooks
+- Testing → CI on every push
+- Code review → Claude in CI
+- Deployment → CD on merge to main
+
+🎯 **Monitor CI performance:**
+```bash
+gh run list
+gh run view [run-id] --log
+```
+
+🎯 **Use PR templates:**
+Create `.github/pull_request_template.md`:
+```markdown
+## Summary
+[Describe changes]
+
+## Type of Change
+- [ ] Bug fix
+- [ ] New feature
+- [ ] Breaking change
+
+## Testing
+- [ ] Unit tests added
+- [ ] Integration tests added
+- [ ] Manual testing completed
+
+## Checklist
+- [ ] Code follows style guidelines
+- [ ] Self-review completed
+- [ ] Documentation updated
+```
 
 ---
 

@@ -1,5 +1,16 @@
 # Module 7B: MCP Hands-On Setup 🔌
 
+## ⚡ Quick Summary
+
+- **MCP servers** extend Claude Code with specialized external tools (databases, APIs, cloud services)
+- **Find servers** in the official registry or npm/PyPI
+- **Install & configure** using npx, pip, or docker in ~/.claude/config.json
+- **Test & use** MCP tools with natural language commands
+- **Hands-on practice** installing filesystem and GitHub MCP servers
+- **Estimated time**: ~35 minutes
+
+---
+
 ## What You'll Learn
 
 Model Context Protocol (MCP) servers extend Claude Code with powerful external tools! Instead of just reading what they are, you'll **actually install and use** them.
@@ -36,6 +47,15 @@ MCP servers give Claude access to:
 | **Scope** | General purpose | Specialized |
 | **Examples** | Read, Write, Bash | GitHub API, Database queries |
 | **Configuration** | None needed | Config required |
+
+---
+📍 **Section 1 of 4** • ⏱️ ~30 min remaining
+---
+
+### 🎯 Quick Win (60 seconds)
+
+Try this: "Show me the Claude config file location for my system"
+This will help you prepare for MCP server installation!
 
 ---
 
@@ -75,6 +95,14 @@ Search on:
 - `@modelcontextprotocol/server-puppeteer` - Browser automation
 - `@modelcontextprotocol/server-fetch` - HTTP requests
 
+### 💡 Real-World Example
+
+**Scenario:** A developer needs to analyze database query patterns across multiple projects
+**Solution:** Install PostgreSQL MCP server to query databases directly through Claude
+**Impact:** Can debug production issues, analyze slow queries, and validate data without switching tools
+
+---
+**Navigation:** [← Previous](#what-is-mcp-quick-recap) | [Menu](#top) | [Next →](#hands-on-exercise-7b1-install-filesystem-mcp-server)
 ---
 
 ## Hands-On Exercise 7B.1: Install Filesystem MCP Server
@@ -185,6 +213,15 @@ Watch how I use tools prefixed with `mcp__filesystem__`!
 *[WAIT FOR USER TO COMPLETE EXERCISE 7B.1]*
 
 ---
+📍 **Section 2 of 4** • ⏱️ ~22 min remaining
+---
+
+### 🎯 Quick Win (90 seconds)
+
+Try this: "Help me validate my config.json syntax"
+Catch any configuration errors before restarting Claude!
+
+---
 
 ## MCP Configuration Deep Dive
 
@@ -291,6 +328,12 @@ Pass secrets and configuration:
 
 **Security:** Never commit tokens to git! Use environment variable references or secret managers.
 
+### 💡 Real-World Example
+
+**Scenario:** Team needs to automate GitHub issue triage across 20+ repositories
+**Solution:** Configure GitHub MCP server with organization-level token
+**Impact:** Claude can search issues, label them, assign to team members, and generate weekly reports automatically
+
 ---
 
 ## Hands-On Exercise 7B.2: Install GitHub MCP Server
@@ -357,6 +400,8 @@ After restarting Claude:
 
 *[WAIT FOR USER TO COMPLETE EXERCISE 7B.2]*
 
+---
+📍 **Section 3 of 4** • ⏱️ ~12 min remaining
 ---
 
 ## Using MCP Tools
@@ -434,6 +479,15 @@ Try: "Analyze the facebook/react repository using MCP tools and create a report"
 ---
 
 *[WAIT FOR USER TO COMPLETE EXERCISE 7B.3]*
+
+---
+📍 **Section 4 of 4** • ⏱️ ~8 min remaining
+---
+
+### 🎯 Quick Win (60 seconds)
+
+Try this: "List all available MCP tools from my configured servers"
+See the full arsenal of capabilities you've unlocked!
 
 ---
 
@@ -701,6 +755,14 @@ With both Filesystem and GitHub MCP:
 
 Ask: "Analyze all my repositories for outdated dependencies"
 
+### 💡 Real-World Example
+
+**Scenario:** DevOps team managing infrastructure across AWS, monitoring with Slack
+**Solution:** Configure AWS MCP + Slack MCP + PostgreSQL MCP servers together
+**Impact:** Claude can query cloud resources, check database metrics, and send automated alerts to Slack channels
+
+---
+**Navigation:** [← Previous](#using-mcp-tools) | [Menu](#top) | [Next →](#mcp-best-practices)
 ---
 
 ## MCP Best Practices
@@ -772,6 +834,50 @@ Before moving on, ensure you've:
 
 **You're now an MCP expert!** You can extend Claude Code with any external tool or service.
 
-**Next up**: Finalize all modules and build the gamification system!
+---
+
+## 📋 MCP Quick Reference Card
+
+### Essential Commands
+```bash
+# Test MCP server
+npx @modelcontextprotocol/server-NAME --help
+
+# Validate config
+python -m json.tool ~/.claude/config.json
+
+# Clear npx cache
+npx clear-npx-cache
+```
+
+### Config Template
+```json
+{
+  "mcpServers": {
+    "server-name": {
+      "command": "npx|python|docker",
+      "args": ["arg1", "arg2"],
+      "env": { "TOKEN": "value" }
+    }
+  }
+}
+```
+
+### Popular Servers
+- **Filesystem**: Advanced file operations
+- **GitHub**: Repository & issue management
+- **PostgreSQL**: Direct database queries
+- **Puppeteer**: Browser automation
+- **Slack**: Team notifications
+
+### Troubleshooting Quick Checks
+1. Valid JSON in config.json?
+2. Server command works standalone?
+3. Tokens have correct permissions?
+4. Claude restarted after config change?
+
+---
+
+**Next up**: Module 8 - Advanced Git & Best Practices!
 
 Type "continue" when ready! 🚀

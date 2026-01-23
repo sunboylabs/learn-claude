@@ -1,5 +1,13 @@
 # Module 5C: Hooks Mastery 🪝
 
+## ⚡ Quick Summary
+
+- Hooks are event-driven scripts that run automatically (commit validation, logging, etc.)
+- You'll create commit validators, achievement systems, and tool usage loggers
+- Master three hook types: user-prompt-submit, tool-use, and tool-use-result
+- Learn debugging techniques and advanced async patterns
+- Estimated time: 40-50 minutes
+
 ## What You'll Learn
 
 Hooks are **event-driven scripts** that run automatically when specific events occur in Claude Code. They're perfect for automation, validation, and custom workflows!
@@ -78,6 +86,20 @@ Runs **after a tool completes**.
 
 **Timing:** After each tool completes
 
+### 🎯 Quick Win (90 seconds)
+
+Try this: Create a simple logging hook at `.claude/hooks/user-prompt-submit/simple-logger.js`:
+```javascript
+#!/usr/bin/env node
+console.log('📝 Prompt submitted at: ' + new Date().toISOString());
+process.exit(0);
+```
+
+Make it executable: `chmod +x .claude/hooks/user-prompt-submit/simple-logger.js`
+Then send a prompt and watch the timestamp appear!
+
+---
+📍 **Section 1 of 5** • ⏱️ ~40 min remaining
 ---
 
 ## Hook Anatomy
@@ -232,6 +254,26 @@ process.stdin.on('end', () => {
 
 ---
 
+### 💡 Real-World Example
+
+**Scenario:** Your team keeps making commits with vague messages like "fix" or "update"
+
+**Solution:** Create a commit-validator hook that enforces minimum length, capitalization, and format rules
+
+**Code:** The commit-validator you just created! It prevents commits with poor messages, improving your git history quality.
+
+---
+**Navigation:** [← Back to Top](#module-5c-hooks-mastery-) | [Menu](#what-youll-learn) | [Next: Hook I/O →](#hook-inputoutput)
+**Progress:** ██░░░░░░░░ 20% through this module
+---
+
+## 📖 Part 2: Hook Input/Output and Environment
+*Reading data, writing output, and using environment variables*
+
+---
+📍 **Section 2 of 5** • ⏱️ ~32 min remaining
+---
+
 ## Hook Input/Output
 
 ### Reading Hook Data (stdin)
@@ -374,6 +416,22 @@ Complete this hook and test it by sending prompts!
 
 *[WAIT FOR USER TO COMPLETE EXERCISE 5C.2]*
 
+---
+
+### 🎯 Quick Win (2 minutes)
+
+Try this: Add a "streak" tracker to your achievement hook that shows how many consecutive days you've used Claude Code. Store last-used date and increment daily streak counter!
+
+---
+**Navigation:** [← Previous: Hook I/O](#hook-inputoutput) | [Menu](#what-youll-learn) | [Next: Hook Patterns →](#hook-patterns)
+**Progress:** ████░░░░░░ 40% through this module
+---
+
+## 📖 Part 3: Hook Patterns and Common Use Cases
+*Logging, safety checks, and notifications*
+
+---
+📍 **Section 3 of 5** • ⏱️ ~24 min remaining
 ---
 
 ## Hook Patterns
@@ -540,6 +598,26 @@ Test it by using various tools and checking the log files!
 
 ---
 
+### 💡 Real-World Example
+
+**Scenario:** You want to understand which Claude Code tools you use most to optimize your workflow
+
+**Solution:** Create a tool-use-result logger that tracks every tool call with timestamps and results
+
+**Code:** Your tool-logger hook! After a week, analyze the logs to see patterns: "I use Read 50% of the time, maybe I should learn Grep for faster searching."
+
+---
+**Navigation:** [← Previous: Hook Patterns](#hook-patterns) | [Menu](#what-youll-learn) | [Next: Debugging Hooks →](#debugging-hooks)
+**Progress:** ██████░░░░ 60% through this module
+---
+
+## 📖 Part 4: Debugging and Testing Hooks
+*Finding issues and ensuring reliability*
+
+---
+📍 **Section 4 of 5** • ⏱️ ~16 min remaining
+---
+
 ## Debugging Hooks
 
 ### Common Issues
@@ -677,6 +755,16 @@ process.stdin.on('end', () => {
 
 *[WAIT FOR USER TO COMPLETE EXERCISE 5C.4]*
 
+---
+**Navigation:** [← Previous: Debugging Hooks](#debugging-hooks) | [Menu](#what-youll-learn) | [Next: Advanced Techniques →](#advanced-hook-techniques)
+**Progress:** ████████░░ 80% through this module
+---
+
+## 📖 Part 5: Advanced Techniques and Real-World Examples
+*Async operations, configuration, and production hooks*
+
+---
+📍 **Section 5 of 5** • ⏱️ ~8 min remaining
 ---
 
 ## Advanced Hook Techniques
@@ -884,6 +972,226 @@ process.stdin.on('end', () => {
   }
 });
 ```
+
+### 💡 Real-World Example
+
+**Scenario:** You want to prevent accidental commits before running tests
+
+**Solution:** Create a pre-commit linter hook that runs tests before allowing any commit
+
+**Code:** The pre-commit linter example above, which blocks commits if tests fail, ensuring you never push broken code.
+
+---
+
+### 💡 Real-World Example
+
+**Scenario:** You're curious about your token usage and want to track it over time
+
+**Solution:** Create a token usage tracker hook that estimates tokens per prompt and tracks daily/weekly usage
+
+**Code:** The token usage tracker example! It warns you about large prompts and helps you understand your usage patterns.
+
+---
+**Navigation:** [← Previous: Advanced Techniques](#advanced-hook-techniques) | [Menu](#what-youll-learn) | [Back to Top ↑](#module-5c-hooks-mastery-)
+**Progress:** ██████████ 100% complete!
+---
+
+## 📋 Quick Reference Card
+
+### Hook Types and Timing
+
+| Hook Type | When It Runs | Use For |
+|-----------|--------------|---------|
+| `user-prompt-submit` | Before prompt sent to Claude | Logging, achievements, auto-context |
+| `tool-use` | Before tool executes | Validation, safety checks, blocking |
+| `tool-use-result` | After tool completes | Logging results, post-processing |
+
+### Hook File Structure (JavaScript)
+```javascript
+#!/usr/bin/env node
+
+let inputData = '';
+process.stdin.on('data', (chunk) => { inputData += chunk; });
+
+process.stdin.on('end', () => {
+  try {
+    const hookData = JSON.parse(inputData);
+
+    // Your hook logic here
+
+    process.exit(0); // Allow operation
+  } catch (error) {
+    console.error('Hook error:', error.message);
+    process.exit(0); // Fail open on error
+  }
+});
+```
+
+### Hook Data Structure (stdin JSON)
+```javascript
+{
+  event: "tool-use",           // Hook type
+  timestamp: "2025-01-23...",  // When it happened
+  tool: "Bash",                // Tool being used
+  parameters: {                // Tool parameters
+    command: "git commit..."
+  },
+  prompt: "User's message"     // For user-prompt-submit
+}
+```
+
+### Event Handling Patterns
+
+**Basic Hook:**
+```javascript
+process.stdin.on('end', () => {
+  const hookData = JSON.parse(inputData);
+  console.log('Hook triggered');
+  process.exit(0);
+});
+```
+
+**Conditional Blocking:**
+```javascript
+if (shouldBlock) {
+  console.error('❌ Operation blocked');
+  process.exit(1); // Block
+} else {
+  process.exit(0); // Allow
+}
+```
+
+**Async Operations:**
+```javascript
+process.stdin.on('end', async () => {
+  try {
+    const data = JSON.parse(inputData);
+    await doAsyncWork(data);
+    process.exit(0);
+  } catch (error) {
+    process.exit(0); // Fail open
+  }
+});
+```
+
+### Exit Codes
+- `process.exit(0)` → Success, allow operation
+- `process.exit(1)` → Failure, block operation (for tool-use only)
+
+### Environment Variables
+```javascript
+process.env.CLAUDE_PROJECT_DIR  // Project directory
+process.env.HOME                // User home
+process.env.CLAUDE_CONFIG_DIR   // Claude config
+```
+
+### File Organization
+```
+.claude/hooks/
+├── user-prompt-submit/
+│   ├── achievement-tracker.js
+│   └── logger.js
+├── tool-use/
+│   ├── commit-validator.js
+│   └── safety-check.js
+├── tool-use-result/
+│   └── result-logger.js
+└── lib/
+    └── hook-utils.js          # Shared utilities
+```
+
+### Common Script Patterns
+
+**1. Validation Hook:**
+```javascript
+if (hookData.tool === 'Bash' &&
+    hookData.parameters.command.includes('git commit')) {
+  const message = extractCommitMessage(command);
+  if (message.length < 10) {
+    console.error('❌ Message too short');
+    process.exit(1); // Block
+  }
+}
+```
+
+**2. Logging Hook:**
+```javascript
+const logEntry = {
+  timestamp: new Date().toISOString(),
+  tool: hookData.tool,
+  parameters: hookData.parameters
+};
+fs.appendFileSync('log.json', JSON.stringify(logEntry) + '\n');
+process.exit(0); // Always allow
+```
+
+**3. Safety Check Hook:**
+```javascript
+const dangerousPatterns = [/rm -rf \//];
+for (const pattern of dangerousPatterns) {
+  if (pattern.test(command)) {
+    console.error('🚨 DANGER: Blocked');
+    process.exit(1);
+  }
+}
+```
+
+### Debugging Tips
+
+**Not Running?**
+- ✅ Check file location: `.claude/hooks/{event-type}/script.js`
+- ✅ Make executable: `chmod +x script.js`
+- ✅ Add shebang: `#!/usr/bin/env node`
+- ✅ Check for syntax errors
+
+**Blocking Unexpectedly?**
+```javascript
+// Add debug logging
+console.error('Hook input:', JSON.stringify(hookData, null, 2));
+console.error('Exit code:', shouldBlock ? 1 : 0);
+```
+
+**Crashing?**
+```javascript
+// Always wrap in try-catch
+try {
+  // Hook logic
+} catch (error) {
+  console.error('Hook error:', error);
+  process.exit(0); // Fail open
+}
+```
+
+### Shared Utilities Pattern
+```javascript
+// .claude/hooks/lib/hook-utils.js
+function readHookData() {
+  return new Promise((resolve) => {
+    let data = '';
+    process.stdin.on('data', (chunk) => { data += chunk; });
+    process.stdin.on('end', () => resolve(JSON.parse(data)));
+  });
+}
+
+module.exports = { readHookData };
+```
+
+Usage:
+```javascript
+const { readHookData } = require('../lib/hook-utils.js');
+const hookData = await readHookData();
+```
+
+### Best Practices
+- ✅ Always use try-catch for error handling
+- ✅ Fail open on errors (exit 0, not 1)
+- ✅ Make hooks executable with shebang
+- ✅ Log to stderr for errors, stdout for info
+- ✅ Test hooks standalone before integration
+- ✅ Keep hooks fast (< 100ms if possible)
+- ❌ Don't block operations unless critical
+- ❌ Don't assume data structure without checking
+- ❌ Don't perform expensive operations in hooks
 
 ---
 

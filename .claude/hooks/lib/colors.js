@@ -375,6 +375,21 @@ function showCursor() {
   process.stdout.write('\x1b[?25h');
 }
 
+// Convenience color wrappers for common colors
+const cyan = (text) => colorize(text, 'primary');
+const green = (text) => colorize(text, 'success');
+const red = (text) => colorize(text, 'error');
+const yellow = (text) => colorize(text, 'warning');
+const blue = (text) => colorize(text, 'info');
+const magenta = (text) => colorize(text, 'heading');
+const gray = (text) => colorize(text, 'border');
+
+// Convenience style wrappers
+const bold = (text) => stylize(text, 'bold');
+const italic = (text) => stylize(text, 'italic');
+const dim = (text) => stylize(text, 'dim');
+const underline = (text) => stylize(text, 'underline');
+
 // Export everything
 module.exports = {
   COLORS,
@@ -393,7 +408,19 @@ module.exports = {
   clear,
   moveCursor,
   hideCursor,
-  showCursor
+  showCursor,
+  // Convenience wrappers
+  cyan,
+  green,
+  red,
+  yellow,
+  blue,
+  magenta,
+  gray,
+  bold,
+  italic,
+  dim,
+  underline
 };
 
 // Test if run directly
